@@ -20,8 +20,21 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "monospace" :size 20 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "sans" :size 21))
+(setq doom-font (font-spec :family "monospace" :size 27 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "sans" :size 28))
+
+;; https://old.reddit.com/r/emacs/comments/5ldmjh/adding_space_between_text_and_the_top_of_the/
+(setq header-line-format "  ")
+(setq writeroom-global-effects '(writeroom-set-alpha
+                                 writeroom-set-menu-bar-lines
+                                 writeroom-set-tool-bar-lines
+                                 writeroom-set-vertical-scroll-bars
+                                 writeroom-set-bottom-divider-width
+                                 writeroom-set-internal-border-width))
+
+(setq writeroom-border-width 200)
+
+(setq company-global-modes '(not erc-mode message-mode help-mode gud-mode text-mode org-mode))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -52,78 +65,70 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;;
+
+(setq flycheck-global-modes '(not emacs-lisp-mode))
+
+;; (add-hook! some-mode #'enable-something #'and-another)
+(add-hook! 'text-mode-hook
+           #'electric-operator-mode
+           #'evil-better-visual-line-on)
+
+(add-hook! 'org-mode-hook
+           #'olivetti-mode
+           #'pabbrev-mode)
+
+(remove-hook! 'evil-visual-state-exit-hook 'doom-enable-hl-line-maybe-h)
+
+(remove-hook! 'org-mode-hook 'flyspell-mode)
+
+(add-hook! 'org-mode-hook (hl-line-mode -1))
 
 (use-package! which-key
   :custom
   (which-key-idle-delay 0.6))
 
+(use-package! evil
+  :custom
+  (evil-respect-visual-line-mode t))
+
+(use-package! org
+  :custom
+  (org-enforce-todo-checkbox-dependencies t)
+  (org-src-ask-before-returning-to-edit-buffer nil)
+  (org-ellipsis ".")
+  (org-directory "~/org/"))
+
+(use-package! ranger
+  ;; :demand t
+  :custom
+  (ranger-deer-show-details nil)
+  :config
+  (map! :map ranger-mode-map
+        "q" 'ranger-close
+        "<escape>" 'ranger-close
+        :desc "Deer" :leader "r" 'deer))
+
 (use-package! avy
+  :custom
+  (avy-single-candidate-jump t)
   :init
-  (map! :n "f" 'avy-goto-word-1-below
-        :n "F" 'avy-goto-word-1-above))
+  (map! :nv "f" 'avy-goto-char-2-below
+        :nv "F" 'avy-goto-char-2-above))
+
+(use-package! ivy
+  :custom
+  (ivy-height 15)
+  (ivy-extra-directories nil)
+  (counsel-outline-display-style 'title)
+  (counsel-find-file-at-point t)
+  (counsel-bookmark-avoid-dired t)
+  (counsel-grep-swiper-limit 10000)
+  (ivy-ignore-buffers '("^#.*#$"
+                        "^\\*.*\\*")))
 
 (use-package! olivetti
   :custom
-  (olivetti-body-width 200)
+  (olivetti-body-width 120)
   :config
   (olivetti-mode +1))
-
-(map! :map (+doom-dashboard-mode-map)
-      :e "q"         'quit-window)
-
-(map! :n "<escape>"    'my-save-buffer
-      :n "M-RET"       'my-indent-buffer
-      :n "C-s"         'counsel-grep
-      :i "C-u"         'my-backward-kill-line
-      :n "gr"          'my-sel-to-end
-      :n "ge"          'evil-end-of-visual-line
-      :n "M-k"         'windmove-up
-      :n "M-j"         'windmove-down
-      :n "M-h"         'windmove-left
-      :n "M-l"         'windmove-right
-      "M-p"            'backward-paragraph
-      "M-n"            'forward-paragraph
-      "M-s"            'evil-switch-to-windows-last-buffer)
-
-(map! :desc "Kill Buffer" :leader "k"   'kill-this-buffer
-      :desc "Olivetti" :leader "to"   'olivetti-mode
-      :desc "Goto Dashboard" :leader "gd"   '+doom-dashboard/open)
-
-(setq flycheck-global-modes '(not emacs-lisp-mode))
-
-(defun my-save-buffer ()
-  (interactive)
-  (evil-ex-nohighlight)
-  (save-buffer))
-
-(defun my-indent-buffer ()
-  (interactive)
-  (let ((inhibit-message t))
-    (evil-indent
-     (point-min)
-     (point-max))))
-
-(defun my-backward-kill-line (arg)
-  "Kill ARG lines backward."
-  (interactive "p")
-  (kill-line (- 1 arg)))
-
-(defun my-sel-to-end ()
-  (interactive)
-  (evil-visual-char)
-  (evil-last-non-blank))
-
-(defun xah-clean-empty-lines ()
-  "replace repeated blank lines to just 1."
-  (interactive)
-  (let ($begin $end)
-    (if (region-active-p)
-        (setq $begin (region-beginning) $end (region-end))
-      (setq $begin (point-min) $end (point-max)))
-    (save-excursion
-      (save-restriction
-        (narrow-to-region $begin $end)
-        (progn
-          (goto-char (point-min))
-          (while (re-search-forward "\n\n\n+" nil "move")
-            (replace-match "\n\n")))))))

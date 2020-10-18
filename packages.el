@@ -50,4 +50,9 @@
 ;(unpin! t)
 
 (package! olivetti)
+(package! electric-operator)
+(package! fountain-mode)
+(package! evil-better-visual-line)
+(package! caps-lock)
+(package! pabbrev)
 (package! evil-snipe :disable t)
