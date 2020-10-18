@@ -68,9 +68,9 @@
 ;;
 
 (setq! flycheck-global-modes '(not emacs-lisp-mode)
-       eldoc-idle-delay 3)
+       eldoc-idle-delay 3
+       confirm-kill-emacs nil)
 
-;; (add-hook! some-mode #'enable-something #'and-another)
 (add-hook! 'text-mode-hook
            #'electric-operator-mode
            #'evil-better-visual-line-on)
@@ -79,12 +79,10 @@
            #'olivetti-mode
            #'pabbrev-mode)
 
-(remove-hook! 'evil-visual-state-exit-hook 'doom-enable-hl-line-maybe-h)
-
-(remove-hook! 'org-mode-hook 'flyspell-mode)
-
 (add-hook! 'org-mode-hook (hl-line-mode -1))
 
+(remove-hook! 'org-mode-hook 'flyspell-mode)
+(remove-hook! 'evil-visual-state-exit-hook 'doom-enable-hl-line-maybe-h)
 
 (load-file "~/.doom.d/use-package.el")
 (load-file "~/.doom.d/functions.el")
