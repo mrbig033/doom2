@@ -67,7 +67,8 @@
 ;; they are implemented.
 ;;
 
-(setq flycheck-global-modes '(not emacs-lisp-mode))
+(setq! flycheck-global-modes '(not emacs-lisp-mode)
+       eldoc-idle-delay 3)
 
 ;; (add-hook! some-mode #'enable-something #'and-another)
 (add-hook! 'text-mode-hook
@@ -102,19 +103,11 @@
 (use-package! ranger
   ;; :demand t
   :custom
-  (ranger-deer-show-details nil)
-  :config
-  (map! :map ranger-mode-map
-        "q" 'ranger-close
-        "<escape>" 'ranger-close
-        :desc "Deer" :leader "r" 'deer))
+  (ranger-deer-show-details nil))
 
 (use-package! avy
   :custom
-  (avy-single-candidate-jump t)
-  :init
-  (map! :nv "f" 'avy-goto-char-2-below
-        :nv "F" 'avy-goto-char-2-above))
+  (avy-single-candidate-jump t))
 
 (use-package! ivy
   :custom
@@ -132,3 +125,9 @@
   (olivetti-body-width 120)
   :config
   (olivetti-mode +1))
+
+(use-package cool-moves
+  :load-path "/home/jones/.doom.d/lisp/cool-moves")
+
+(load-file "~/.doom.d/functions.el")
+(load-file "~/.doom.d/kbds.el")
