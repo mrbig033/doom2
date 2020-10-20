@@ -24,7 +24,9 @@
       doom-variable-pitch-font (font-spec :family "sans" :size 28))
 
 ;; https://old.reddit.com/r/emacs/comments/5ldmjh/adding_space_between_text_and_the_top_of_the/
-(setq header-line-format "  ")
+(setq header-line-format "  "
+      auto-revert-verbose nil)
+
 (setq writeroom-global-effects '(writeroom-set-alpha
                                  writeroom-set-menu-bar-lines
                                  writeroom-set-tool-bar-lines
@@ -66,10 +68,10 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 ;;
-
+(mouse-avoidance-mode 'banish)
 (setq! flycheck-global-modes '(not emacs-lisp-mode)
        eldoc-idle-delay 3
-       confirm-kill-emacs nil)
+       pabbrev-idle-timer-verbose nil)
 
 (add-hook! 'text-mode-hook
            #'electric-operator-mode

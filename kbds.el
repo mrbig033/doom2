@@ -1,4 +1,11 @@
 ;;; kbds.el -*- lexical-binding: t; -*-
+;;;
+(general-unbind 'normal lisp-interaction-mode-map
+  :with 'ignore
+  [remap my-save-buffer])
+
+(map! :map (text-mode-map prog-mode-map)
+      :n "<escape>"    'my-save-buffer)
 
 (map! :map (help-mode-map helpful-mode-map)
       :n "<escape>"    'quit-window
@@ -13,6 +20,7 @@
       :nv "F" 'avy-goto-char-2-above)
 
 (map! :map (ivy-minibuffer-map ivy-switch-buffer-map)
+      "C-,"      'ivy-previous-line
       "C-."      'ivy-next-line
       "C-k"      'kill-line
       "C-h"      'delete-backward-char)
@@ -37,6 +45,9 @@
       :n "zi" 'org-show-all
       "C-c C-s" 'org-emphasize)
 
+(map! :map (pabbrev-mode-map evil-org-mode-map org-mode-map)
+      :i "C-l" 'pabbrev-expand-maybe)
+
 (map! :map override
       :n "M-RET"       'my-indent-buffer
       :n "C-s"         'counsel-grep-or-swiper
@@ -55,9 +66,11 @@
       :i "C-e"         'move-end-of-line
       :i "C-a"         'move-beginning-of-line
       :i "C-k"         'kill-line
+      :nvieg "M-y"         'counsel-yank-pop
+      :nvieg "M-0"         'quit-window
+      :nvieg "C-0"         'delete-other-windows
       :nvieg "M--"         'winner-undo
       :nvieg "M-="         'winner-redo
-      :nvieg "C-,"         'helpful-at-point
       :nvieg "M-k"         'windmove-up
       :nvieg "M-j"         'windmove-down
       :nvieg "M-h"         'windmove-left
@@ -67,8 +80,11 @@
       "C-c q"          'quick-calc
       "M-s"            'evil-switch-to-windows-last-buffer)
 
-(map! :nvieg "C-."         'doom/find-file-in-private-config
-      :n "<escape>"    'my-save-buffer )
+(map! :nvieg "C-."         'my-search-settings
+      :nvieg "C-,"         'helpful-at-point
+      :nvieg "C-c i"         'insert-char
+      :n "'"    'evil-goto-mark
+      :n "`"    'evil-goto-mark-line)
 
 (map! :desc "Kill Buffer" :leader "k"   'kill-this-buffer
       :desc "Olivetti" :leader "to"   'olivetti-mode

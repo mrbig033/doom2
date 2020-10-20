@@ -14,7 +14,18 @@
   (org-enforce-todo-checkbox-dependencies t)
   (org-src-ask-before-returning-to-edit-buffer nil)
   (org-ellipsis ".")
-  (org-directory "~/org/"))
+  (org-directory "~/org/")
+  (org-capture-templates '(("t" "Todo" entry (file+headline +org-capture-todo-file "Inbox") "* [ ] %? %i %a" :prepend t)
+                                ("n" "Note" entry (file+headline +org-capture-notes-file "Inbox") "* %u %? %i %a" :prepend t)
+                                ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %? %i %a" :prepend t)
+                                ("p" "Local Projects")
+                                ("pt" "Todo" entry (file+headline +org-capture-project-todo-file "Inbox") "* TODO %? %i %a" :prepend t)
+                                ("pn" "Notes" entry (file+headline +org-capture-project-notes-file "Inbox") "* %U %? %i %a" :prepend t)
+                                ("pc" "Changelog" entry (file+headline +org-capture-project-changelog-file "Unreleased") "* %U %? %i %a" :prepend t)
+                                ("o" "Centralized projects")
+                                ("ot" "Todo" entry #'+org-capture-central-project-todo-file "* TODO %? %i %a" :heading "Tasks" :prepend nil)
+                                ("on" "Notes" entry #'+org-capture-central-project-notes-file "* %U %? %i %a" :heading "Notes" :prepend t)
+                                ("oc" "Changelog" entry #'+org-capture-central-project-changelog-file "* %U %? %i %a" :heading "Changelog" :prepend t))))
 
 (use-package! ranger
   ;; :demand t

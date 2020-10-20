@@ -1,13 +1,18 @@
 ;;; functions.el -*- lexical-binding: t; -*-
 
+(defun my-search-settings ()
+  (interactive)
+  (counsel-ag nil "~/.doom.d/" "-f -G '.el'"))
+
 (defun my-delete-frame ()
   (interactive)
   (delete-frame))
 
 (defun my-save-buffer ()
   (interactive)
-  (evil-ex-nohighlight)
-  (save-buffer))
+  (let ((inhibit-message t))
+    (evil-ex-nohighlight)
+    (save-buffer)))
 
 (defun my-indent-buffer ()
   (interactive)
