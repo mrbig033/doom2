@@ -36,6 +36,13 @@
   (evil-visual-char)
   (evil-last-non-blank))
 
+(defun my-yank-dirname-as-kill ()
+  "Source: https://stackoverflow.com/a/53075288
+   Copy the current directory into the kill ring."
+  (interactive)
+  (kill-new default-directory)
+  (message default-directory))
+
 (defun xah-clean-empty-lines ()
   "replace repeated blank lines to just 1."
   (interactive)

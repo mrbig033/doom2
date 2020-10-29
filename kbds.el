@@ -88,6 +88,7 @@
       :n "`"    'evil-goto-mark-line)
 
 (map! :desc "Kill Buffer" :leader "k"   'kill-this-buffer
+      :desc "Yank Dirname" :leader "fY"   'my-yank-dirname-as-kill
       :desc "Olivetti" :leader "to"   'olivetti-mode
       :desc "Xah Clean Empty Lines" :leader "tD"   'xah-clean-empty-lines
       :desc "Visible Mode" :leader "tv"   'visible-mode
