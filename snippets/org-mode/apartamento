@@ -1,0 +1,23 @@
+# key: apto
+# name: apartamento
+# condition: t
+# --
+* $0Nome
+** Dados
+- Endereço:
+- Quartos:
+- Área: m²
+** Valores
+- Valor total: R$
+  + Aluguel: R$
+  + Condomínio: R$
+  + IPTU: R$
+** Descrição
+  + informações
+  + *elevador*?  _SIM_
+** Contatos
+- Anúncio (Anunciante)
+- Contato:
+  + Nome: (71)
+- Status: ainda não foi feito o contato
+- Próxima Visita: a marcar

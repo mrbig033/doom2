@@ -68,14 +68,18 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 ;;
-(mouse-avoidance-mode 'banish)
+(mouse-avoidance-mode 'exile)
+(global-auto-revert-mode t)
+
 (setq! flycheck-global-modes '(not emacs-lisp-mode)
        eldoc-idle-delay 3
-       pabbrev-idle-timer-verbose nil)
+       pabbrev-idle-timer-verbose nil
+       markdown-hide-urls t)
 
 (add-hook! 'text-mode-hook
            #'electric-operator-mode
-           #'evil-better-visual-line-on)
+           #'evil-better-visual-line-on
+           #'abbrev-mode)
 
 (add-hook! 'org-mode-hook
            #'olivetti-mode

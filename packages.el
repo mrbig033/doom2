@@ -55,4 +55,5 @@
 (package! evil-better-visual-line)
 (package! caps-lock)
 (package! pabbrev)
+(package! super-save)
 (package! evil-snipe :disable t)

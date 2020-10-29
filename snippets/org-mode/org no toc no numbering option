@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: org-no-toc-no-num
+# uuid:
+# key: nonum
+# condition: t
+# --
+#+OPTIONS: num:nil, toc:nil

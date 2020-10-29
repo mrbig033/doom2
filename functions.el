@@ -14,6 +14,11 @@
     (evil-ex-nohighlight)
     (save-buffer)))
 
+(defun my-just-save-buffer-quiet ()
+  (interactive)
+  (let ((inhibit-message t))
+    (save-buffer)))
+
 (defun my-indent-buffer ()
   (interactive)
   (let ((inhibit-message t))

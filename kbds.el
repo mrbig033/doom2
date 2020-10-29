@@ -4,7 +4,10 @@
   :with 'ignore
   [remap my-save-buffer])
 
-(map! :map (text-mode-map prog-mode-map)
+(map! :map (flycheck-mode-map)
+      :nvieg "C-c f"    'flycheck-first-error)
+
+(map! :map (text-mode-map prog-mode-map conf-mode-map)
       :n "<escape>"    'my-save-buffer)
 
 (map! :map (help-mode-map helpful-mode-map)
@@ -19,7 +22,7 @@
 (map! :nv "f" 'avy-goto-char-2-below
       :nv "F" 'avy-goto-char-2-above)
 
-(map! :map (ivy-minibuffer-map ivy-switch-buffer-map)
+(map! :map (ivy-minibuffer-map ivy-switch-buffer-map minibuffer-local-map)
       "C-,"      'ivy-previous-line
       "C-."      'ivy-next-line
       "C-k"      'kill-line
@@ -40,12 +43,7 @@
 (map! "M-p"            'backward-paragraph
       "M-n"            'forward-paragraph)
 
-(map! :map (evil-org-mode-map org-mode-map)
-      :n "<backspace>" 'org-edit-special
-      :n "zi" 'org-show-all
-      "C-c C-s" 'org-emphasize)
-
-(map! :map (pabbrev-mode-map evil-org-mode-map org-mode-map)
+(map! :map (pabbrev-mode-map)
       :i "C-l" 'pabbrev-expand-maybe)
 
 (map! :map override
@@ -66,6 +64,9 @@
       :i "C-e"         'move-end-of-line
       :i "C-a"         'move-beginning-of-line
       :i "C-k"         'kill-line
+      :nvieg "<f8>"         'man
+      :nvieg "C-S-j"         'cool-moves/line-forward
+      :nvieg "C-S-k"         'cool-moves/line-backward
       :nvieg "M-y"         'counsel-yank-pop
       :nvieg "M-0"         'quit-window
       :nvieg "C-0"         'delete-other-windows
@@ -88,6 +89,8 @@
 
 (map! :desc "Kill Buffer" :leader "k"   'kill-this-buffer
       :desc "Olivetti" :leader "to"   'olivetti-mode
+      :desc "Xah Clean Empty Lines" :leader "tD"   'xah-clean-empty-lines
+      :desc "Visible Mode" :leader "tv"   'visible-mode
       :desc "Change Dictionary" :leader "td"   'ispell-change-dictionary
       :desc "Quit Window" :leader "0"   'quit-window
       :desc "Make Frame" :leader "Q"   'make-frame
