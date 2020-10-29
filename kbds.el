@@ -22,7 +22,7 @@
 (map! :nv "f" 'avy-goto-char-2-below
       :nv "F" 'avy-goto-char-2-above)
 
-(map! :map (ivy-minibuffer-map ivy-switch-buffer-map minibuffer-local-map)
+(map! :map (ivy-minibuffer-map ivy-switch-buffer-map minibuffer-local-map read-expression-map)
       "C-,"      'ivy-previous-line
       "C-."      'ivy-next-line
       "C-k"      'kill-line
@@ -93,8 +93,8 @@
       :desc "Xah Clean Empty Lines" :leader "tD"   'xah-clean-empty-lines
       :desc "Visible Mode" :leader "tv"   'visible-mode
       :desc "Change Dictionary" :leader "td"   'ispell-change-dictionary
-      :desc "Quit Window" :leader "0"   'quit-window
-      :desc "Make Frame" :leader "Q"   'make-frame
+      :desc "Delete Window" :leader "0"   'delete-window
+      :desc "Quit Window" :leader "Q"   'quit-window
       :desc "Flyspell Buffer" :leader "tb"   'flyspell-buffer
       :desc "Flyspell Previous" :leader "tp"   'flyspell-correct-previous
       :desc "Goto Dashboard" :leader "gd"   '+doom-dashboard/open)

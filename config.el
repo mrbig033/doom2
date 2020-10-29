@@ -71,10 +71,13 @@
 (mouse-avoidance-mode 'exile)
 (global-auto-revert-mode t)
 
+(add-hook 'server-switch-hook #'raise-frame)
+
 (setq! flycheck-global-modes '(not emacs-lisp-mode)
        eldoc-idle-delay 3
        pabbrev-idle-timer-verbose nil
-       markdown-hide-urls t)
+       markdown-hide-urls t
+       windmove-wrap-around t)
 
 (add-hook! 'text-mode-hook
            #'electric-operator-mode

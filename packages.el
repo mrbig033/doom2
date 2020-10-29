@@ -55,5 +55,6 @@
 (package! evil-better-visual-line)
 (package! caps-lock)
 (package! pabbrev)
+(package! dimmer)
 (package! super-save)
 (package! evil-snipe :disable t)
