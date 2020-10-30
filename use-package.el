@@ -15,29 +15,32 @@
 ;;;;; ORG ;;;;;
 (use-package! org
   :init
-  (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
+  (remove-hook!
+    'org-cycle-hook 'org-optimize-window-after-visibility-change
+    'org-tab-first-hook #'+org-cycle-only-current-subtree-h)
   :custom
   (org-ellipsis ".")
   (org-directory "~/org/")
   (org-enforce-todo-checkbox-dependencies t)
   (org-src-ask-before-returning-to-edit-buffer nil)
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s)" "|" "DONE(d)")))
-  (org-capture-templates '(("t" "Todo"
-                            entry (file+headline +org-capture-todo-file "Inbox [/]")
-                            "* TODO %? %i" :prepend t)
+  :config
+  (setq! org-capture-templates '(("t" "Todo"
+                                  entry (file+headline +org-capture-todo-file "Inbox [/]")
+                                  "* TODO %? %i" :prepend t)
 
-                           ("n" "Notes"
-                            entry (file+headline +org-capture-notes-file "Inbox")
-                            "* %u %? %i" :prepend t)
+                                 ("n" "Notes"
+                                  entry (file+headline +org-capture-notes-file "Inbox")
+                                  "* %u %? %i" :prepend t)
 
-                           ("j" "Journal"
-                            entry (file+olp+datetree +org-capture-journal-file)
-                            "* %u %? %i" :prepend t))))
+                                 ("j" "Journal"
+                                  entry (file+olp+datetree +org-capture-journal-file)
+                                  "* %u %? %i" :prepend t))))
 
 ;;;;; EVIL ORG ;;;;;
 ;;;;; https://bit.ly/3kE3Pcl ;;;;
-(after! evil-org
-  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
+;; (after! evil-org
+;;   )
 ;;;;; RANGER ;;;;;
 (use-package! ranger
   ;; :demand t
