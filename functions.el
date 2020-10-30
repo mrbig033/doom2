@@ -1,5 +1,10 @@
 ;;; functions.el -*- lexical-binding: t; -*-
 
+(defun my-comment-line ()
+  (interactive)
+  (save-excursion
+    (comment-line 1)))
+
 (defun my-search-settings ()
   (interactive)
   (counsel-ag nil "~/.doom.d/" "-f -G '.el'"))
@@ -7,6 +12,7 @@
 (defun my-delete-frame ()
   (interactive)
   (delete-frame))
+
 
 (defun my-save-buffer ()
   (interactive)
@@ -30,6 +36,36 @@
   "Kill ARG lines backward."
   (interactive "p")
   (kill-line (- 1 arg)))
+
+(defun my-show-package-commands ()
+  (interactive)
+  (counsel-M-x "^package-"))
+
+(defun my-show-server-commands ()
+  (interactive)
+  (counsel-M-x "^server-"))
+
+(defun my-force-normal-state ()
+  (interactive)
+  (evil-ex-nohighlight)
+  (evil-force-normal-state))
+
+;; (defun my-save-some-buffers ()
+;;   (interactive)
+;;   (let ((inhibit-message t))
+;;     (evil-ex-nohighlight)
+;;     (save-some-buffers t 0)))
+
+;; (defun my-eval-buffer ()
+;;   (interactive)
+;;   (my-save-some-buffers)
+;;   (+eval/buffer))
+
+(defun my-eval-buffer ()
+  (interactive)
+  (my-save-buffer)
+  (eval-buffer)
+  (message " buffer evaluated"))
 
 (defun my-sel-to-end ()
   (interactive)
@@ -57,3 +93,17 @@
           (goto-char (point-min))
           (while (re-search-forward "\n\n\n+" nil "move")
             (replace-match "\n\n")))))))
+
+(defun my-rename-file-and-buffer ()
+  "Rename the current buffer and file it is visiting.
+   Source: https://bit.ly/31X6KWk."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (message "Buffer is not visiting a file!")
+      (let ((new-name (read-file-name "New name: " filename)))
+        (cond
+         ((vc-backend filename) (vc-rename-file filename new-name))
+         (t
+          (rename-file filename new-name t)
+          (set-visited-file-name new-name t t)))))))

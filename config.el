@@ -71,20 +71,29 @@
 (mouse-avoidance-mode 'exile)
 (global-auto-revert-mode t)
 
-(add-hook 'server-switch-hook #'raise-frame)
+(add-hook! '(prog-mode-hook
+             text-mode-hook
+             org-mode-hook
+             helpful-mode-hook
+             conf-mode-hook) #'olivetti-mode)
+
 
 (setq! flycheck-global-modes '(not emacs-lisp-mode)
-       eldoc-idle-delay 3
+       eldoc-idle-delay 100
        pabbrev-idle-timer-verbose nil
        markdown-hide-urls t
-       windmove-wrap-around t)
+       doom-localleader-key "m"
+       ;; doom-scratch-initial-major-mode 'my-org-mode
+       windmove-wrap-around t
+       ;; for url-shortener
+       bitly-access-token "3026d7e8b1a0f89da10740c69fd77b4b3293151e")
 
 ;; Get focus even with focus stealing prevention
-;; Source: https://old.reddit.com/r/emacs/comments/it4m2w/weekly_tipstricketc_thread/g5kr7z7/
-(defun my/focus-new-client-frame ()
+;; Source: https://bit.ly/37XClem
+(defun my-new-frame-settings ()
   (select-frame-set-input-focus (selected-frame)))
 
-(add-hook 'server-after-make-frame-hook #'my/focus-new-client-frame)
+(add-hook 'server-after-make-frame-hook #'my-new-frame-settings)
 
 (add-hook! 'text-mode-hook
            #'electric-operator-mode
@@ -100,6 +109,12 @@
 (remove-hook! 'org-mode-hook 'flyspell-mode)
 (remove-hook! 'evil-visual-state-exit-hook 'doom-enable-hl-line-maybe-h)
 
+(define-derived-mode scratch-mode
+  text-mode "scratch")
+
+(define-derived-mode my-org-mode
+  org-mode "my-org")
+
 (load-file "~/.doom.d/use-package.el")
 (load-file "~/.doom.d/functions.el")
-(load-file "~/.doom.d/kbds.el")
+(mapc 'load (file-expand-wildcards "~/.doom.d/kbds/*.el"))
