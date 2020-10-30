@@ -59,4 +59,5 @@
 (package! super-save)
 (package! eyebrowse)
 (package! clipmon)
+(package! hl-sentence)
 (package! evil-snipe :disable t)

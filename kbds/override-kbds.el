@@ -42,4 +42,6 @@
       "C-S-j"        'cool-moves/line-forward
       "C-S-k"        'cool-moves/line-backward
       "C-M-n"        'cool-moves/word-forward
-      "C-M-p"        'cool-moves/word-backwards)
+      "C-M-p"        'cool-moves/word-backwards
+      "M-p"          'backward-paragraph
+      "M-n"          'forward-paragraph)

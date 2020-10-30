@@ -1,6 +1,16 @@
 ;;; local-kbds.el -*- lexical-binding: t; -*-
 
-(map! :map (my-org-mode-map)
+(map! :map (evil-org-mode-map org-mode-map)
+        :i "C-l"         'pabbrev-expand-maybe
+        :n "<backspace>" 'org-edit-special
+        :n "zi"          'org-show-all
+        :n "C-j"            'org-shiftleft
+        :n "C-k"            'org-shiftright
+        "C-k"            'org-shiftleft
+        "C-c b"          'org-cycle-list-bullet
+        "C-c C-s"        'org-emphasize)
+
+(map! :map (my-org-mode-map my-lisp-interaction-mode-map)
       :n "<escape>" 'quit-window
       :n "q"        'quit-window)
 
@@ -8,9 +18,9 @@
       :nvieg "C-c f"    'flycheck-first-error)
 
 (map! :map (prog-mode-map)
-      :n "<tab>" 'hs-toggle-hiding
-      :n "C-c h" 'hs-hide-all
-      :n "C-c s" 'hs-show-all)
+      :n "<tab>" 'outline-toggle-children
+      :n "C-c h" 'outline-hide-body
+      :n "C-c s" 'outline-show-all)
 
 (map! :map (prog-mode-map conf-mode-map)
       :nvieg "C-9" 'my-comment-line)
@@ -19,8 +29,7 @@
       :n "<escape>"    'my-save-buffer)
 
 (map! :map (help-mode-map helpful-mode-map)
-      :n "<escape>"    'quit-window
-      "<escape>" 'quit-window)
+      :n "<escape>"    'my-force-normal-state)
 
 (map! :map ranger-mode-map
       "q" 'ranger-close

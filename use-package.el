@@ -1,49 +1,53 @@
 ;;; use-package.el -*- lexical-binding: t; -*-
 
+;;;;; WHICH KEY ;;;;;
 (use-package! which-key
   :custom
   (which-key-idle-delay 0.5))
-
+;;;;; EVIL ;;;;;
 (use-package! evil
   :custom
   (evil-respect-visual-line-mode t))
-
+;;;;; EVIL BETTER VISUAL LINE ;;;;;
+(use-package! evil-better-visual-line
+  :config
+  (evil-better-visual-line-on))
+;;;;; ORG ;;;;;
 (use-package! org
   :init
-  (setq org-capture-templates '(("t" "Todo" entry (file+headline +org-capture-todo-file "Inbox") "* [ ] %? %i %a" :prepend t)
-                                ("n" "Notes" entry (file+headline +org-capture-notes-file "Inbox") "* %u %? %i %a" :prepend t)
-                                ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %? %i %a" :prepend t)))
-
-  (map! :map (evil-org-mode-map org-mode-map)
-        :i "C-l"         'pabbrev-expand-maybe
-        :n "<backspace>" 'org-edit-special
-        :n "zi"          'org-show-all
-        :n "C-j"            'org-shiftleft
-        :n "C-k"            'org-shiftright
-        "C-k"            'org-shiftleft
-        "C-c b"          'org-cycle-list-bullet
-        "C-c C-s"        'org-emphasize)
-
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   :custom
+  (org-ellipsis ".")
+  (org-directory "~/org/")
   (org-enforce-todo-checkbox-dependencies t)
   (org-src-ask-before-returning-to-edit-buffer nil)
-  (org-ellipsis ".")
-  (org-directory "~/org/"))
+  (org-todo-keywords '((sequence "TODO(t)" "STRT(s)" "|" "DONE(d)")))
+  (org-capture-templates '(("t" "Todo"
+                            entry (file+headline +org-capture-todo-file "Inbox [/]")
+                            "* TODO %? %i" :prepend t)
 
-;; https://github.com/hlissner/doom-emacs/issues/3159
+                           ("n" "Notes"
+                            entry (file+headline +org-capture-notes-file "Inbox")
+                            "* %u %? %i" :prepend t)
+
+                           ("j" "Journal"
+                            entry (file+olp+datetree +org-capture-journal-file)
+                            "* %u %? %i" :prepend t))))
+
+;;;;; EVIL ORG ;;;;;
+;;;;; https://bit.ly/3kE3Pcl ;;;;
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
-
+;;;;; RANGER ;;;;;
 (use-package! ranger
   ;; :demand t
   :custom
   (ranger-deer-show-details nil))
-
+;;;;; AVY ;;;;;
 (use-package! avy
   :custom
   (avy-single-candidate-jump t))
-
+;;;;; IVY ;;;;;
 (use-package! ivy
   :custom
   (ivy-height 15)
@@ -54,14 +58,14 @@
   (counsel-grep-swiper-limit 10000)
   (ivy-ignore-buffers '("^#.*#$"
                         "^\\*.*\\*")))
-
+;;;;; OLIVETTI ;;;;;
 (use-package! olivetti
   :custom
   (olivetti-body-width 100))
-
+;;;;; COOL MOVES ;;;;;
 (use-package cool-moves
   :load-path "/home/jones/.doom.d/lisp/cool-moves")
-
+;;;;; SUPER SAVE ;;;;;
 (use-package! super-save
   :custom
   (auto-save-default nil)
@@ -82,7 +86,7 @@
       (my-just-save-buffer-quiet)))
 
   (super-save-mode +1))
-
+;;;;; COMPANY ;;;;;
 (use-package! company
   :custom
   (company-show-numbers t)
@@ -148,11 +152,11 @@
     (interactive)
     (company-complete-selection)
     (insert " ")))
-
+;;;;; EYEBROWSE ;;;;;
 (use-package! eyebrowse
   :config
   (eyebrowse-mode +1))
-
+;;;;; CLIPMON ;;;;;
 (use-package! clipmon
   :config
   (clipmon-mode-start))

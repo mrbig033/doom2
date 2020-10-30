@@ -107,3 +107,27 @@
          (t
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
+
+;; Get focus even with focus stealing prevention
+;; Source: https://bit.ly/37XClem
+(defun my-new-frame-settings ()
+  (select-frame-set-input-focus (selected-frame)))
+
+(defun my-sort-lines-by-length (reverse beg end)
+  "sort lines by length."
+  (interactive "p\nr")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region beg end)
+      (goto-char (point-min))
+      (let ;; to make `end-of-line' and etc. to ignore fields.
+          ((inhibit-field-text-motion t))
+        (sort-subr reverse 'forward-line 'end-of-line nil nil
+                   (lambda (l1 l2)
+                     (apply #'< (mapcar (lambda (range) (- (cdr range) (car range)))
+                                        (list l1 l2)))))
+        (reverse-region beg end)))))
+
+(defun my-show-major-mode ()
+  (interactive)
+  (helpful-variable 'major-mode))

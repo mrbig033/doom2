@@ -9,5 +9,5 @@
       :nvieg "C-."   'my-search-settings
       :nvieg "C-,"   'helpful-at-point
       :nvieg "C-c i" 'insert-char
-      "M-p"          'backward-paragraph
-      "M-n"          'forward-paragraph)
+      "C-h m"         'my-show-major-mode
+      )

@@ -10,20 +10,24 @@
       :desc "Quit Window"             :leader "Q"   'quit-window
       :desc "Flyspell Buffer"         :leader "tb"  'flyspell-buffer
       :desc "Flyspell Previous"       :leader "tp"  'flyspell-correct-previous
-      :desc "Org Capture Goto Target" :leader "nn"  'org-capture-goto-target
-      :desc "Org Capture"             :leader "nN"  'org-capture
+      :desc "Org Capture Goto Target" :leader "nn"  'counsel-org-capture
+      :desc "Org Capture Goto Target" :leader "N"   'counsel-org-capture
       :desc "Org Capture Goto Last"   :leader "nL"  'org-capture-goto-last-stored
-      :desc "Switch to Scratch"       :leader "bx"  'doom/switch-to-scratch-buffer
-      :desc "Switch to Scratch"       :leader "x"   'doom/switch-to-scratch-buffer
-      :desc "Open Scratch"            :leader "bX"  'doom/open-scratch-buffer
+      :desc "Switch to Scratch"       :leader "X"   'doom/switch-to-scratch-buffer
+      :desc "Open Scratch"            :leader "x"   'doom/open-scratch-buffer
       :desc "Eyebrowse New"           :leader "v"   'eyebrowse-create-window-config
       :desc "Eyebrowse Close"         :leader "V"   'eyebrowse-close-window-config
       :desc "Goto Dashboard"          :leader "gd"  '+doom-dashboard/open
       :desc "My Package Commands"     :leader "scp" 'my-show-package-commands
       :desc "My Server Commands"      :leader "scs" 'my-show-server-commands
       :desc "New Snippet"             :leader "yn"  '+snippets/new
-      :desc "Edit Snippet"            :leader "ye"  '+snippets/edit
+      :desc "Edit Snippet"            :leader "ye"  'yas-visit-snippet-file
       :desc "Find Snippet"            :leader "yf"  '+snippets/find
       :desc "Insert Snippet"          :leader "yi"  'yas-insert-snippet
       :desc "My Rename"               :leader "fR"  'my-rename-file-and-buffer
-      :desc "My Eval Buffer"          :leader "meb"  'my-eval-buffer)
+      :desc "My Eval Buffer"          :leader "meb" 'my-eval-buffer
+      :desc "Trash File"              :leader "fD"  'move-file-to-trash
+      :desc "Highlight Line"          :leader "th"  'hl-line-mode
+      :desc "Highlight Sentence"      :leader "ts"  'hl-sentence-mode
+      :desc "Flyspell Mode"           :leader "tS"  'flyspell-mode
+      :desc "Disable Theme"           :leader "hT"  'disable-theme)
