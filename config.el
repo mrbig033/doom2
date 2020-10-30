@@ -79,6 +79,13 @@
        markdown-hide-urls t
        windmove-wrap-around t)
 
+;; Get focus even with focus stealing prevention
+;; Source: https://old.reddit.com/r/emacs/comments/it4m2w/weekly_tipstricketc_thread/g5kr7z7/
+(defun my/focus-new-client-frame ()
+  (select-frame-set-input-focus (selected-frame)))
+
+(add-hook 'server-after-make-frame-hook #'my/focus-new-client-frame)
+
 (add-hook! 'text-mode-hook
            #'electric-operator-mode
            #'evil-better-visual-line-on
