@@ -20,9 +20,11 @@
       :desc "Goto Dashboard"          :leader "gd"  '+doom-dashboard/open
       :desc "My Package Commands"     :leader "scp" 'my-show-package-commands
       :desc "My Server Commands"      :leader "scs" 'my-show-server-commands
+      :desc "My Info Commands"        :leader "sci" 'my-show-info-commands
       :desc "New Snippet"             :leader "yn"  '+snippets/new
       :desc "Edit Snippet"            :leader "ye"  'yas-visit-snippet-file
       :desc "Find Snippet"            :leader "yf"  '+snippets/find
+      :desc "Clone Buffer"            :leader "wC"  'clone-indirect-buffer-other-window
       :desc "Insert Snippet"          :leader "yi"  'yas-insert-snippet
       :desc "My Rename"               :leader "fR"  'my-rename-file-and-buffer
       :desc "My Eval Buffer"          :leader "meb" 'my-eval-buffer

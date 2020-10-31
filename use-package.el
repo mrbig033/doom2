@@ -3,7 +3,7 @@
 ;;;;; WHICH KEY ;;;;;
 (use-package! which-key
   :custom
-  (which-key-idle-delay 0.5))
+  (which-key-idle-delay 0.4))
 ;;;;; EVIL ;;;;;
 (use-package! evil
   :custom
@@ -61,8 +61,10 @@
   (counsel-grep-swiper-limit 10000)
   (ivy-ignore-buffers '("^#.*#$"
                         "^\\*.*\\*")))
+(remove-hook 'Info-mode 'olivetti)
 ;;;;; OLIVETTI ;;;;;
 (use-package! olivetti
+  :hook (Info-mode . olivetti-mode)
   :custom
   (olivetti-body-width 100))
 ;;;;; COOL MOVES ;;;;;
@@ -163,3 +165,14 @@
 (use-package! clipmon
   :config
   (clipmon-mode-start))
+;;;;; INFO ;;;;;
+(use-package! info
+  :init
+  (add-hook 'Info-selection-hook 'info-colors-fontify-node)
+  (remove-hook 'Info-mode-hook 'doom-modeline-set-info-modeline))
+;;;;; LISPYVILLE ;;;;;
+(use-package! lispyville
+  :custom
+  (lispyville-no-alter-lispy-options t)
+  :config
+  (defalias 'lispyville-yank 'evil-yank))

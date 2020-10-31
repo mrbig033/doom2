@@ -17,3 +17,7 @@
   :with 'quit-window
   [remap evil-record-macro]
   [remap evil-force-normal-state])
+
+(general-unbind 'lispyville-mode-map
+  :with 'evil-switch-to-windows-last-buffer
+  [remap lispy-splice])

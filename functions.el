@@ -13,7 +13,6 @@
   (interactive)
   (delete-frame))
 
-
 (defun my-save-buffer ()
   (interactive)
   (let ((inhibit-message t))
@@ -40,6 +39,10 @@
 (defun my-show-package-commands ()
   (interactive)
   (counsel-M-x "^package-"))
+
+(defun my-show-info-commands ()
+  (interactive)
+  (counsel-M-x "^Info "))
 
 (defun my-show-server-commands ()
   (interactive)
