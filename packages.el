@@ -62,6 +62,7 @@
 (package! hl-sentence)
 (package! yasnippet)
 (package! yasnippet-snippets)
+(package! elmacro)
 
 (package! yasnippet :disable t)
 (package! evil-snipe :disable t)

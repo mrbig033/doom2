@@ -57,9 +57,8 @@
 (define-derived-mode my-org-mode
   org-mode "my-org")
 
-(mouse-avoidance-mode 'exile)
+(mouse-avoidance-mode 'banish)
 (global-auto-revert-mode t)
 ;;;;; LOAD FILES ;;;;;
-(load-file "~/.doom.d/use-package.el")
-(load-file "~/.doom.d/functions.el")
-(mapc 'load (file-expand-wildcards "~/.doom.d/kbds/*.el"))
+(mapc 'load (file-expand-wildcards "~/.doom.d/lisp/settings/*.el"))
+(mapc 'load (file-expand-wildcards "~/.doom.d/lisp/kbds/*.el"))

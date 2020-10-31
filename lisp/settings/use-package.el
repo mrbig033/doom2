@@ -25,27 +25,8 @@
   (org-src-ask-before-returning-to-edit-buffer nil)
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s)" "|" "DONE(d)")))
   :config
-  (setq! system-time-locale "C"
-         org-capture-templates
-         '(("t" "Todo"
-            entry
-            (file+headline +org-capture-todo-file "Inbox [/]")
-            "* TODO %? %i" :prepend t)
+  (load-file "~/.doom.d/lisp/settings/org-capture-templates.el"))
 
-           ("n" "Now"
-            entry
-            (file+headline +org-capture-notes-file "Now")
-            "* %? %i" :prepend t)
-
-           ("o" "Notes"
-            entry
-            (file+headline +org-capture-notes-file "Inbox")
-            "* %u %? %i" :prepend t)
-
-           ("j" "Journal"
-            entry
-            (file+olp+datetree +org-capture-journal-file)
-            "* %u %? %i" :prepend t))))
 
 ;;;;; EVIL ORG ;;;;;
 ;;;;; https://bit.ly/3kE3Pcl ;;;;
