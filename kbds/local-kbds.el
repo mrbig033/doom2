@@ -11,8 +11,13 @@
       "C-c b"          'org-cycle-list-bullet
       "C-c C-s"        'org-emphasize)
 
-(map! :map (my-org-mode-map my-lisp-interaction-mode-map)
-      :n "<escape>" 'quit-window
+(map! :map (my-org-mode-map
+            my-lisp-interaction-mode-map
+            my-markdown-mode
+            my-fundamental-mode
+            my-text-mode
+            my-org-mode)
+      :n "<escape>" 'my-force-normal-state
       :n "q"        'quit-window)
 ;;;;; PROG AND TEXT;;;;;
 (map! :map (prog-mode-map)

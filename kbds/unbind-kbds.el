@@ -29,3 +29,7 @@
 (general-unbind 'lispyville-mode-map
   :with 'evil-switch-to-windows-last-buffer
   [remap lispy-splice])
+
+(general-unbind 'org-capture-mode-map
+  :with 'org-capture-finalize
+  [remap my-indent-buffer])
