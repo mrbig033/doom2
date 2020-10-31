@@ -17,8 +17,9 @@
 ;;;;; PROG AND TEXT;;;;;
 (map! :map (prog-mode-map)
       :n "<tab>" 'outline-toggle-children
-      :n "C-c h" 'outline-hide-body
-      :n "C-c s" 'outline-show-all)
+      :ni "C-c h" 'outline-hide-body
+      :ni "C-c s" 'outline-show-all
+      :ni "C-c o" 'outline-hide-other)
 
 (map! :map (prog-mode-map conf-mode-map)
       :nvieg "C-9" 'my-comment-line)
@@ -53,9 +54,6 @@
       "C-."      'ivy-next-line
       "C-k"      'kill-line
       "C-h"      'delete-backward-char)
-
-(map! :map (+doom-dashboard-mode-map)
-      :e "q"        'quit-window)
 
 (map! :map (Info-mode-map)
       :n "m"        'Info-menu

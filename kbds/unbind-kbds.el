@@ -11,12 +11,20 @@
 
 (general-unbind +doom-dashboard-mode-map
   :with 'forward-button
-  [remap evil-better-visual-line-next-line]
+  [remap evil-better-visual-line-next-line])
+
+(general-unbind +doom-dashboard-mode-map
   :with 'backward-button
-  [remap evil-better-visual-line-previous-line]
+  [remap evil-better-visual-line-previous-line])
+
+(general-unbind +doom-dashboard-mode-map
   :with 'quit-window
   [remap evil-record-macro]
   [remap evil-force-normal-state])
+
+(general-unbind +doom-dashboard-mode-map
+  :with 'push-button
+  [remap evil-forward-char])
 
 (general-unbind 'lispyville-mode-map
   :with 'evil-switch-to-windows-last-buffer

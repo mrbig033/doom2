@@ -10,4 +10,5 @@
       :nvieg "C-,"   'helpful-at-point
       :nvieg "C-c i" 'insert-char
       "C-h m"         'my-show-major-mode
-      )
+      "M-p"            'backward-paragraph
+      "M-n"            'forward-paragraph)

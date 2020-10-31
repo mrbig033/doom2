@@ -172,7 +172,5 @@
   (remove-hook 'Info-mode-hook 'doom-modeline-set-info-modeline))
 ;;;;; LISPYVILLE ;;;;;
 (use-package! lispyville
-  :custom
-  (lispyville-no-alter-lispy-options t)
   :config
   (defalias 'lispyville-yank 'evil-yank))
