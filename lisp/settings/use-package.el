@@ -15,9 +15,10 @@
 ;;;;; ORG ;;;;;
 (use-package! org
   :init
-  (remove-hook!
-    'org-cycle-hook 'org-optimize-window-after-visibility-change
-    'org-tab-first-hook #'+org-cycle-only-current-subtree-h)
+  (add-hook 'org-mode-hook #'pabbrev-mode)
+  (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
+  (remove-hook 'org-tab-first-hook '+org-cycle-only-current-subtree-h)
+  (remove-hook 'org-mode-hook 'flyspell-mode)
   :custom
   (org-ellipsis ".")
   (org-directory "~/org/")
@@ -30,8 +31,6 @@
 
 ;;;;; EVIL ORG ;;;;;
 ;;;;; https://bit.ly/3kE3Pcl ;;;;
-;; (after! evil-org
-;;   )
 ;;;;; RANGER ;;;;;
 (use-package! ranger
   ;; :demand t

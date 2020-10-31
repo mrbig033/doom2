@@ -134,3 +134,22 @@
 (defun my-show-major-mode ()
   (interactive)
   (helpful-variable 'major-mode))
+
+;;;;; MODES ;;;;;
+(define-derived-mode my-lisp-interaction-mode
+  lisp-interaction-mode "my-lim")
+
+(define-derived-mode scratch-mode
+  text-mode "my-scratch")
+
+(define-derived-mode my-markdown-mode
+  markdown-mode "my-md")
+
+(define-derived-mode my-fundamental-mode
+  markdown-mode "my-fund")
+
+(define-derived-mode my-text-mode
+  markdown-mode "my-txt")
+
+(define-derived-mode my-org-mode
+  org-mode "my-org")

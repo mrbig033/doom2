@@ -100,13 +100,6 @@
            #'evil-better-visual-line-on
            #'abbrev-mode)
 
-(add-hook! 'org-mode-hook
-           #'olivetti-mode
-           #'pabbrev-mode)
-
-(add-hook! 'org-mode-hook (hl-line-mode -1))
-
-(remove-hook! 'org-mode-hook 'flyspell-mode)
 (remove-hook! 'evil-visual-state-exit-hook 'doom-enable-hl-line-maybe-h)
 
 (define-derived-mode scratch-mode

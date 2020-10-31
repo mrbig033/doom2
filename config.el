@@ -18,47 +18,10 @@
        doom-variable-pitch-font (font-spec :family "sans" :size 28)
        bitly-access-token "3026d7e8b1a0f89da10740c69fd77b4b3293151e"
        doom-font (font-spec :family "monospace" :size 27 :weight 'semi-light))
-;;;;; HOOKS ;;;;;
-;; REMOVE HOOKS ;;;;;
-(remove-hook! 'org-mode-hook 'flyspell-mode)
-(remove-hook! '(org-mode-hook text-mode-hook prog-mode-hook) hl-line-mode)
-(remove-hook! 'evil-visual-state-exit-hook 'doom-enable-hl-line-maybe-h)
-;; ADD HOOKS ;;;;;
-(add-hook! '(prog-mode-hook
-             text-mode-hook
-             org-mode-hook
-             helpful-mode-hook
-             conf-mode-hook) #'olivetti-mode)
-(add-hook! 'text-mode-hook
-           #'electric-operator-mode
-           #'abbrev-mode)
-(add-hook! 'org-mode-hook #'olivetti-mode #'pabbrev-mode)
-(add-hook! 'server-after-make-frame-hook #'my-new-frame-settings)
-;; MAKE SCRIPTS EXECUTABLE ;;;;;
-;; source: https://bit.ly/31ZDduV
-(add-hook 'after-save-hook
-  'executable-make-buffer-file-executable-if-script-p)
-;;;;; MODES ;;;;;
-(define-derived-mode my-lisp-interaction-mode
-  lisp-interaction-mode "my-lim")
-
-(define-derived-mode scratch-mode
-  text-mode "my-scratch")
-
-(define-derived-mode my-markdown-mode
-  markdown-mode "my-md")
-
-(define-derived-mode my-fundamental-mode
-  markdown-mode "my-fund")
-
-(define-derived-mode my-text-mode
-  markdown-mode "my-txt")
-
-(define-derived-mode my-org-mode
-  org-mode "my-org")
 
 (mouse-avoidance-mode 'banish)
 (global-auto-revert-mode t)
+
 ;;;;; LOAD FILES ;;;;;
 (mapc 'load (file-expand-wildcards "~/.doom.d/lisp/settings/*.el"))
 (mapc 'load (file-expand-wildcards "~/.doom.d/lisp/kbds/*.el"))
