@@ -63,6 +63,7 @@
 (package! yasnippet)
 (package! yasnippet-snippets)
 (package! elmacro)
+(package! typo)
 
 (package! yasnippet :disable t)
 (package! evil-snipe :disable t)

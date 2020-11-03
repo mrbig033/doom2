@@ -5,8 +5,10 @@
       :i "C-l"         'pabbrev-expand-maybe
       :n "<backspace>" 'org-edit-special
       :n "zi"          'org-show-all
-      :n "C-j"            'org-shiftleft
-      :n "C-k"            'org-shiftright
+      :n "C-j"         'org-shiftleft
+      :n "C-k"         'org-shiftright
+      "C-M-k"          'org-metaup
+      "C-M-j"          'org-metadown
       "C-k"            'org-shiftleft
       "C-c b"          'org-cycle-list-bullet
       "C-c C-s"        'org-emphasize)
@@ -38,7 +40,7 @@
       :n "<escape>"    'my-save-buffer)
 
 (map! :map (pabbrev-mode-map)
-      :i "C-l" 'pabbrev-expand-maybe)
+      :i "C-9" 'pabbrev-expand-maybe)
 ;;;;; MISC ;;;;;
 (map! :map (help-mode-map helpful-mode-map)
       :n "<escape>"    'my-force-normal-state)

@@ -6,6 +6,7 @@
 
 (map! :n "'"         'evil-goto-mark
       :n "`"         'evil-goto-mark-line
+      :i "M-/"         'hippie-expand
       :nvieg "C-."   'my-search-settings
       :nvieg "C-,"   'helpful-at-point
       :nvieg "C-c i" 'insert-char

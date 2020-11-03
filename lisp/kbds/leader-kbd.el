@@ -10,8 +10,6 @@
       :desc "Quit Window"               :leader "Q"   'quit-window
       :desc "Flyspell Buffer"           :leader "tb"  'flyspell-buffer
       :desc "Flyspell Previous"         :leader "tp"  'flyspell-correct-previous
-      :desc "Counsel Org Capture"       :leader "ç"   'org-capture
-      :desc "Org Capture Goto Last"     :leader "Ç"   'org-capture-goto-last-stored
       :desc "Switch to Scratch"         :leader "X"   'doom/switch-to-scratch-buffer
       :desc "Open Scratch"              :leader "x"   'doom/open-scratch-buffer
       :desc "Eyebrowse New"             :leader "v"   'eyebrowse-create-window-config
@@ -26,7 +24,8 @@
       :desc "Clone Buffer"              :leader "wC"  'clone-indirect-buffer-other-window
       :desc "Insert Snippet"            :leader "yi"  'yas-insert-snippet
       :desc "My Rename"                 :leader "fR"  'my-rename-file-and-buffer
-      :desc "My Eval Buffer"            :leader "meb" 'my-eval-buffer
+      :desc "My Eval Buffer"            :leader "meb" '+eval/buffer
+      :desc "My Eval Buffer"            :leader "e"   'my-eval-buffer
       :desc "Trash File"                :leader "fD"  'move-file-to-trash
       :desc "Highlight Line"            :leader "th"  'hl-line-mode
       :desc "Highlight Sentence"        :leader "ts"  'hl-sentence-mode
@@ -40,5 +39,9 @@
       :desc "My Fundamental Mode"       :leader "mF"  'my-fundamental-mode
       :desc "Text Mode"                 :leader "mt"  'text-mode
       :desc "Text Mode"                 :leader "mT"  'my-text-mode
+      :desc "Typo Mode"                 :leader "my"  'typo-mode
       :desc "Org Mode"                  :leader "mo"  'org-mode
-      :desc "My Org Mode"               :leader "mO"  'my-org-mode)
+      :desc "My Org Mode"               :leader "mO"  'my-org-mode
+      :desc "Link Hint Open Link"       :leader "l"   'link-hint-open-link
+      :desc "Bash Shebang"              :leader "ib"   'my-bash-shebang
+      :desc "Python Shebang"            :leader "ip"   'my-python-shebang)

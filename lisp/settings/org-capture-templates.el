@@ -7,7 +7,7 @@
 
            ("o" "Notes"
             entry
-            (file+headline +org-capture-notes-file "Inbox")
+            (file+headline +org-capture-notes-file "Notes")
             "* %u %? %i" :prepend t)
 
            ("j" "Journal"

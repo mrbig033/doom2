@@ -114,7 +114,8 @@
 ;; Get focus even with focus stealing prevention
 ;; Source: https://bit.ly/37XClem
 (defun my-new-frame-settings ()
-  (select-frame-set-input-focus (selected-frame)))
+  (select-frame-set-input-focus (selected-frame))
+  (toggle-frame-maximized))
 
 (defun my-sort-lines-by-length (reverse beg end)
   "sort lines by length."
@@ -130,6 +131,11 @@
                      (apply #'< (mapcar (lambda (range) (- (cdr range) (car range)))
                                         (list l1 l2)))))
         (reverse-region beg end)))))
+
+(defun my-show-server-name ()
+  (interactive)
+  (beginning-of-buffer)
+  (helpful-variable 'server-name))
 
 (defun my-show-major-mode ()
   (interactive)
@@ -153,3 +159,21 @@
 
 (define-derived-mode my-org-mode
   org-mode "my-org")
+
+(defun my-bash-shebang ()
+  (interactive)
+  (erase-buffer)
+  (insert "#!/usr/bin/env bash\n\n")
+  (sh-mode)
+  (sh-set-shell "bash")
+  (xah-clean-empty-lines)
+  (forward-to-indentation)
+  (evil-insert-state))
+
+(defun my-python-shebang ()
+  (interactive)
+  (kill-region (point-min) (point-max))
+  (insert "#!/usr/bin/env python3\n\n")
+  ;; (insert "\"\"\" Docstring \"\"\"")
+  ;; (insert "\n\n")
+  (evil-insert-state))

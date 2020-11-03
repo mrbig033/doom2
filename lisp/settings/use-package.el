@@ -15,11 +15,11 @@
 ;;;;; ORG ;;;;;
 (use-package! org
   :init
-  (add-hook 'org-mode-hook #'pabbrev-mode)
+  ;; (add-hook 'org-mode-hook #'pabbrev-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
-  (remove-hook 'org-tab-first-hook '+org-cycle-only-current-subtree-h)
   (remove-hook 'org-mode-hook 'flyspell-mode)
   :custom
+  (org-archive-location ".%s::")
   (org-ellipsis ".")
   (org-directory "~/org/")
   (org-enforce-todo-checkbox-dependencies t)
@@ -27,10 +27,11 @@
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s)" "|" "DONE(d)")))
   :config
   (load-file "~/.doom.d/lisp/settings/org-capture-templates.el"))
-
-
 ;;;;; EVIL ORG ;;;;;
 ;;;;; https://bit.ly/3kE3Pcl ;;;;
+(use-package! evil-org
+  :config
+  (remove-hook 'org-tab-first-hook '+org-cycle-only-current-subtree-h))
 ;;;;; RANGER ;;;;;
 (use-package! ranger
   ;; :demand t
@@ -69,7 +70,17 @@
   (super-save-idle-duration 5)
   (super-save-auto-save-when-idle t)
   :config
-  (add-to-list 'super-save-triggers 'evil-switch-to-windows-last-buffer 'delete-other-windows)
+
+  (setq super-save-triggers '(switch-to-buffer
+                              other-window
+                              windmove-up
+                              windmove-down
+                              windmove-left
+                              windmove-right
+                              counsel-M-x
+                              next-buffer
+                              previous-buffer))
+
   (add-to-list 'super-save-hook-triggers 'find-file-hook)
 
   (defun super-save-command ()
