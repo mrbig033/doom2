@@ -6,10 +6,12 @@
 
 (map! :n "'"         'evil-goto-mark
       :n "`"         'evil-goto-mark-line
-      :i "M-/"         'hippie-expand
+      :n "g."        'evil-repeat
+      :n "."         'counsel-M-x
+      :i "M-/"       'hippie-expand
       :nvieg "C-."   'my-search-settings
       :nvieg "C-,"   'helpful-at-point
       :nvieg "C-c i" 'insert-char
-      "C-h m"         'my-show-major-mode
-      "M-p"            'backward-paragraph
-      "M-n"            'forward-paragraph)
+      "C-h m"        'my-show-major-mode
+      "M-p"          'backward-paragraph
+      "M-n"          'forward-paragraph)

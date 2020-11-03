@@ -60,11 +60,12 @@
 (package! eyebrowse)
 (package! clipmon)
 (package! hl-sentence)
-(package! yasnippet)
-(package! yasnippet-snippets)
 (package! elmacro)
 (package! typo)
+(package! poet-theme)
 
-(package! yasnippet :disable t)
+(package! yasnippet-snippets)
+;; (package! yasnippet :disable t)
+
 (package! evil-snipe :disable t)
 (package! doom-snippets :disable t)

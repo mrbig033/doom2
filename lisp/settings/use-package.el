@@ -13,12 +13,18 @@
   :config
   (evil-better-visual-line-on))
 ;;;;; ORG ;;;;;
+
+(use-package org-plus-contrib)
+
 (use-package! org
   :init
-  ;; (add-hook 'org-mode-hook #'pabbrev-mode)
+  (add-hook 'org-mode-hook #'pabbrev-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
-  (remove-hook 'org-mode-hook 'flyspell-mode)
+  ;; (remove-hook 'org-mode-hook 'flyspell-mode)
   :custom
+  (org-log-into-drawer t)
+  (org-clock-into-drawer t)
+  (org-drawers (quote ("properties" "logbook")))   ;; Separate drawers for clocking and logs
   (org-archive-location ".%s::")
   (org-ellipsis ".")
   (org-directory "~/org/")
@@ -26,7 +32,9 @@
   (org-src-ask-before-returning-to-edit-buffer nil)
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s)" "|" "DONE(d)")))
   :config
-  (load-file "~/.doom.d/lisp/settings/org-capture-templates.el"))
+  (load-file "~/.doom.d/lisp/settings/org-capture-templates.el")
+  (require 'ox-extra)
+  (ox-extras-activate '(ignore-headlines)))
 ;;;;; EVIL ORG ;;;;;
 ;;;;; https://bit.ly/3kE3Pcl ;;;;
 (use-package! evil-org
@@ -67,7 +75,7 @@
   (auto-save-default nil)
   (super-save-exclude '(".py"))
   (super-save-remote-files nil)
-  (super-save-idle-duration 5)
+  (super-save-idle-duration 10)
   (super-save-auto-save-when-idle t)
   :config
 
@@ -79,6 +87,7 @@
                               windmove-right
                               counsel-M-x
                               next-buffer
+                              +eval/buffer
                               previous-buffer))
 
   (add-to-list 'super-save-hook-triggers 'find-file-hook)

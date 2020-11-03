@@ -8,8 +8,6 @@
       :desc "Change Dictionary"         :leader "td"  'ispell-change-dictionary
       :desc "Delete Window"             :leader "0"   'delete-window
       :desc "Quit Window"               :leader "Q"   'quit-window
-      :desc "Flyspell Buffer"           :leader "tb"  'flyspell-buffer
-      :desc "Flyspell Previous"         :leader "tp"  'flyspell-correct-previous
       :desc "Switch to Scratch"         :leader "X"   'doom/switch-to-scratch-buffer
       :desc "Open Scratch"              :leader "x"   'doom/open-scratch-buffer
       :desc "Eyebrowse New"             :leader "v"   'eyebrowse-create-window-config
@@ -18,9 +16,6 @@
       :desc "My Package Commands"       :leader "scp" 'my-show-package-commands
       :desc "My Server Commands"        :leader "scs" 'my-show-server-commands
       :desc "My Info Commands"          :leader "sci" 'my-show-info-commands
-      :desc "New Snippet"               :leader "yn"  '+snippets/new
-      :desc "Edit Snippet"              :leader "ye"  'yas-visit-snippet-file
-      :desc "Find Snippet"              :leader "yf"  '+snippets/find
       :desc "Clone Buffer"              :leader "wC"  'clone-indirect-buffer-other-window
       :desc "Insert Snippet"            :leader "yi"  'yas-insert-snippet
       :desc "My Rename"                 :leader "fR"  'my-rename-file-and-buffer
@@ -29,7 +24,6 @@
       :desc "Trash File"                :leader "fD"  'move-file-to-trash
       :desc "Highlight Line"            :leader "th"  'hl-line-mode
       :desc "Highlight Sentence"        :leader "ts"  'hl-sentence-mode
-      :desc "Flyspell Mode"             :leader "tS"  'flyspell-mode
       :desc "Disable Theme"             :leader "hT"  'disable-theme
       :desc "Lispy Interaction Mode"    :leader "ml"  'lisp-interaction-mode
       :desc "My Lispy Interaction Mode" :leader "mL"  'my-lisp-interaction-mode
@@ -44,4 +38,12 @@
       :desc "My Org Mode"               :leader "mO"  'my-org-mode
       :desc "Link Hint Open Link"       :leader "l"   'link-hint-open-link
       :desc "Bash Shebang"              :leader "ib"   'my-bash-shebang
-      :desc "Python Shebang"            :leader "ip"   'my-python-shebang)
+      :desc "Python Shebang"            :leader "ip"   'my-python-shebang
+      :desc "Flyspell Mode"             :leader "tS"  'flyspell-mode
+      :desc "Flyspell Buffer"           :leader "tb"  'flyspell-buffer
+      :desc "Flyspell Previous"         :leader "="   'flyspell-correct-wrapper
+      :desc "New Snippet"               :leader "yn"  '+snippets/new
+      :desc "Edit Snippet"              :leader "ye"  '+snippets/edit
+      :desc "Find Snippet"              :leader "yf"  '+snippets/find
+      :desc "Reload All"                :leader "yr"  'yas-reload-all
+      )
