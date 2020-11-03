@@ -13,7 +13,9 @@
 (add-hook! 'text-mode-hook
            #'electric-operator-mode
            #'abbrev-mode)
-(add-hook! 'server-after-make-frame-hook #'my-new-frame-settings)
+(add-hook! '(server-after-make-frame-hook
+             doom-first-buffer-hook) #'my-new-frame-settings)
+
 ;;;; MAKE SCRIPTS EXECUTABLE ;;;;;
 ;; source: https://bit.ly/31ZDduV
 (add-hook 'after-save-hook
