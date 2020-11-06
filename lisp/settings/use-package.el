@@ -3,7 +3,7 @@
 ;;;;; WHICH KEY ;;;;;
 (use-package! which-key
   :custom
-  (which-key-idle-delay 0.3))
+  (which-key-idle-delay 1))
 ;;;;; EVIL ;;;;;
 (use-package! evil
   :custom
@@ -18,7 +18,7 @@
 
 (use-package! org
   :init
-  (add-hook 'org-mode-hook #'pabbrev-mode)
+  ;; (remove-hook 'org-mode-hook #'pabbrev-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (remove-hook 'org-mode-hook 'flyspell-mode)
   :custom
@@ -50,14 +50,14 @@
   :after org
   :custom
   (org-pomodoro-offset 1)
-  (org-pomodoro-audio-player "/usr/bin/paplay --volume=32768")
+  (org-pomodoro-audio-player "/usr/bin/paplay --volume=50768")
   (org-pomodoro-start-sound-args t)
-  (org-pomodoro-length (* 8 org-pomodoro-offset))
+  (org-pomodoro-length (* 25 org-pomodoro-offset))
   (org-pomodoro-short-break-length (/ org-pomodoro-length 5))
   (org-pomodoro-long-break-length (* org-pomodoro-length 0.8))
   (org-pomodoro-long-break-frequency 4)
   (org-pomodoro-ask-upon-killing nil)
-  (org-pomodoro-manual-break t)
+  (org-pomodoro-manual-break nil)
   (org-pomodoro-keep-killed-pomodoro-time t)
   ;; (org-pomodoro-time-format "%.2m")
   (org-pomodoro-time-format "%.2m:%.2s")
@@ -233,10 +233,10 @@
 (use-package! zoom
   :custom
   ;; default:
-  ;; (zoom-size '(80 . 24))
+  (zoom-size '(80 . 24))
 
   ;; golden ration:
-  (zoom-size '(0.618 . 0.618))
+  ;; (zoom-size '(0.618 . 0.618))
 
   ;; custom ratio
   ;; (zoom-size '(0.5 . 0.5))

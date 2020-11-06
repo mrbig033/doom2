@@ -1,4 +1,3 @@
 ;;; ../doom-default/.doom.d/tmp/tmp.el -*- lexical-binding: t; -*-
 
-(+ 2 (+ 3 3))
-n
+(message "The name of this buffer is: %s." (buffer-name))

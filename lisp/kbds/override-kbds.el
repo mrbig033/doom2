@@ -33,6 +33,7 @@
       :nvieg "M-j"                        'windmove-down
       :nvieg "M-h"                        'windmove-left
       :nvieg "M-l"                        'windmove-right
+      :desc "Capture Todo"        :n "Ç" 'my-org-capture-todo-macro
       :desc "Capture"             :n "çç" 'org-capture
       :desc "Capture Goto Last"   :n "çl" 'org-capture-goto-last-stored
       :desc "Capture Goto Target" :n "çt" 'org-capture-goto-target

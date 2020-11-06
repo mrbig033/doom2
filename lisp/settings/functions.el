@@ -225,3 +225,6 @@
           (message "\"%s\" now expands to \"%s\" %sally"
                    bef aft (if p "loc" "glob")))
       (user-error "No typo at or before point"))))
+
+(fset 'my-org-capture-todo-macro
+   (kmacro-lambda-form [?\M-x ?c ?o ?u ?n ?s return ?T ?o ?d ?o return escape ?\M-k ?\M-j ?i ? ] 0 "%d"))

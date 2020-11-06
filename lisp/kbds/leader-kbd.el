@@ -21,6 +21,7 @@
       :desc "My Eval Buffer"            :leader "e"   'my-eval-buffer
       :desc "Trash File"                :leader "fD"  'move-file-to-trash
       :desc "Highlight Line"            :leader "th"  'hl-line-mode
+      :desc "Hide Mode Line"            :leader "tH"  'hide-mode-line-mode
       :desc "Highlight Sentence"        :leader "ts"  'hl-sentence-mode
       :desc "Disable Theme"             :leader "hT"  'disable-theme
       :desc "Lispy Interaction Mode"    :leader "ml"  'lisp-interaction-mode
