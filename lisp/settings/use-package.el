@@ -3,7 +3,7 @@
 ;;;;; WHICH KEY ;;;;;
 (use-package! which-key
   :custom
-  (which-key-idle-delay 0.4))
+  (which-key-idle-delay 0.3))
 ;;;;; EVIL ;;;;;
 (use-package! evil
   :custom
@@ -14,13 +14,13 @@
   (evil-better-visual-line-on))
 ;;;;; ORG ;;;;;
 
-(use-package org-plus-contrib)
+;; (use-package org-plus-contrib)
 
 (use-package! org
   :init
   (add-hook 'org-mode-hook #'pabbrev-mode)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
-  ;; (remove-hook 'org-mode-hook 'flyspell-mode)
+  (remove-hook 'org-mode-hook 'flyspell-mode)
   :custom
   (org-log-into-drawer t)
   (org-clock-into-drawer t)
@@ -178,7 +178,6 @@
 ;;;;; INFO ;;;;;
 (use-package! info
   :init
-  (add-hook 'Info-selection-hook 'info-colors-fontify-node)
   (remove-hook 'Info-mode-hook 'doom-modeline-set-info-modeline))
 ;;;;; LISPYVILLE ;;;;;
 (use-package! lispyville

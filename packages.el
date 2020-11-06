@@ -63,6 +63,7 @@
 (package! elmacro)
 (package! typo)
 (package! poet-theme)
+(package! easy-hugo)
 
 (package! yasnippet-snippets)
 ;; (package! yasnippet :disable t)

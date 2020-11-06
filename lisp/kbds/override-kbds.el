@@ -9,6 +9,7 @@
        :n "M-a"                            'backward-sentence
        :n "0"                              'evil-beginning-of-visual-line
        :n "g0"                             'evil-digit-argument-or-evil-beginning-of-line
+       :n "!"                              'my-delete-frame
        :n "Q"                              'my-delete-frame
        :i "C-d"                            'delete-char
        :i "C-h"                            'delete-backward-char

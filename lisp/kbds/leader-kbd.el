@@ -46,4 +46,9 @@
       :desc "Edit Snippet"              :leader "ye"  '+snippets/edit
       :desc "Find Snippet"              :leader "yf"  '+snippets/find
       :desc "Reload All"                :leader "yr"  'yas-reload-all
-      )
+      :desc "Describe Keymaps"          :leader "hbb"  'describe-bindings
+      :desc "Show Keymaps"              :leader "hbk"  'which-key-show-keymap
+      :desc "Show Top Keymaps"          :leader "hbt"  'which-key-show-top-level
+      :desc "Show Major jKeymaps"       :leader "hbm"  'which-key-show-major-mode
+      :desc "Show Full Keymaps"         :leader "hbf"  'which-key-show-full-keymap
+      :desc "Show Minor Keymaps"        :leader "hbi"  'which-key-show-minor-mode-keymap)

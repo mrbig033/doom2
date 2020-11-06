@@ -12,7 +12,7 @@
        display-line-numbers-type nil
        pabbrev-idle-timer-verbose nil
        user-mail-address "mrbig033@protonmail.com"
-       flycheck-global-modes '(not emacs-lisp-mode)
+       flycheck-global-modes '(not emacs-lisp-mode lisp-interaction-mode)
        header-line-format "  " ;; source: https://bit.ly/2TDNkkH
        ;; doom-scratch-initial-major-mode 'my-lisp-interaction-mode
        doom-variable-pitch-font (font-spec :family "sans" :size 28)
