@@ -63,6 +63,7 @@
 (package! elmacro)
 (package! typo)
 (package! poet-theme)
+(package! zoom)
 (package! yasnippet-snippets)
 
 (package! evil-lion :disable t)

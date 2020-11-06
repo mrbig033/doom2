@@ -7,7 +7,8 @@
 (map! :n "'"         'evil-goto-mark
       :n "`"         'evil-goto-mark-line
       :n "g."        'evil-repeat
-      :n "."         'counsel-M-x
+      :n "."         'ivy-switch-buffer
+      :n "g4"         'evil-backward-word-end
       :i "M-/"       'hippie-expand
       :i "C-k"                            'kill-line
       :nvieg "C-."   'my-search-settings

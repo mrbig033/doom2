@@ -1,7 +1,8 @@
 ;;;; REMOVE HOOKS ;;;;;
 (remove-hook! '(org-mode-hook
                 text-mode-hook
-                prog-mode-hook) hl-line-mode)
+                ;; prog-mode-hook
+                ) hl-line-mode)
 
 (remove-hook! 'evil-visual-state-exit-hook 'doom-enable-hl-line-maybe-h)
 ;;;; ADD HOOKS ;;;;;

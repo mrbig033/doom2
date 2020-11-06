@@ -45,7 +45,6 @@
       "C-/"                               'org-cycle-agenda-files
       :nvieg "M-," 'projectile-next-project-buffer
       :nvieg "M-." 'projectile-previous-project-buffer
-      :nvieg "M-r" '+popup/raise
       "<C-down>"                          'cool-moves/paragraph-forward
       "<C-up>"                            'cool-moves/paragraph-backward
       "C-S-j"                             'cool-moves/line-forward

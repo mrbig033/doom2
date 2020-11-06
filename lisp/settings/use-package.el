@@ -50,15 +50,17 @@
   :after org
   :custom
   (org-pomodoro-offset 1)
+  (org-pomodoro-audio-player "/usr/bin/paplay --volume=32768")
   (org-pomodoro-start-sound-args t)
-  (org-pomodoro-length (* 25 org-pomodoro-offset))
+  (org-pomodoro-length (* 8 org-pomodoro-offset))
   (org-pomodoro-short-break-length (/ org-pomodoro-length 5))
   (org-pomodoro-long-break-length (* org-pomodoro-length 0.8))
   (org-pomodoro-long-break-frequency 4)
   (org-pomodoro-ask-upon-killing nil)
   (org-pomodoro-manual-break t)
   (org-pomodoro-keep-killed-pomodoro-time t)
-  (org-pomodoro-time-format "%.2m")
+  ;; (org-pomodoro-time-format "%.2m")
+  (org-pomodoro-time-format "%.2m:%.2s")
   (org-pomodoro-short-break-format "SHORT: %s")
   (org-pomodoro-long-break-format "LONG: %s")
   (org-pomodoro-format "P: %s"))
@@ -85,7 +87,7 @@
   (counsel-outline-display-style 'title)
   (counsel-find-file-at-point t)
   (counsel-bookmark-avoid-dired t)
-  (counsel-grep-swiper-limit 10000)
+  (counsel-grep-swiper-limit 5000)
   (ivy-ignore-buffers '("^#.*#$"
                         "^\\*.*\\*")))
 (remove-hook 'Info-mode 'olivetti)
@@ -202,6 +204,7 @@
 ;;;;; EYEBROWSE ;;;;;
 (use-package! eyebrowse
   :custom
+  (eyebrowse-wrap-around t)
   (eyebrowse-new-workspace t)
   :config
   (eyebrowse-mode +1))
@@ -226,3 +229,15 @@
 (use-package! hl-sentence
   :custom-face
   (hl-sentence ((t (:inherit hl-line)))))
+;;;;; ZOOM ;;;;;
+(use-package! zoom
+  :custom
+  ;; default:
+  ;; (zoom-size '(80 . 24))
+
+  ;; golden ration:
+  (zoom-size '(0.618 . 0.618))
+
+  ;; custom ratio
+  ;; (zoom-size '(0.5 . 0.5))
+  )

@@ -7,6 +7,7 @@
       :n "zi"          'org-show-all
       :n "C-j"         'org-shiftleft
       :n "C-k"         'org-shiftright
+      :i "C-k"         'kill-line
       :desc "Goto Clock"      :localleader "cs" 'org-clock-display
       ;; :desc "Display Clocked" :localleader "cg" 'org-clock-goto
       "C-M-k"          'org-metaup
@@ -72,11 +73,13 @@
       :n "<escape>" 'my-force-normal-state
       :n "m"          'Info-menu
       :n "L"          'Info-history-forward
+      ;; :n "<return>"          'Info-follow-nearest-node
+      ;; :n "RET"          'Info-follow-nearest-node
       :n "C-n"          'Info-next
       :n "C-p"          'Info-prev
       :n "H"          'Info-history-back
       :n "ci"         'clone-indirect-buffer-other-window
-      :n "<C-return>" 'my-evaluate-next-sexp
+      :n "<C-return>" 'eros-eval-last-sexp
       :n "M-n"        'forward-paragraph)
 
 (defun my-evaluate-next-sexp ()
