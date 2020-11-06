@@ -25,6 +25,7 @@
             my-org-mode)
       :n "<escape>" 'my-force-normal-state
       :n "q"        'quit-window)
+
 ;;;;; PROG AND TEXT;;;;;
 (map! :map (prog-mode-map)
       :n "<tab>" 'outline-toggle-children
@@ -79,6 +80,7 @@
       :n "L"          'Info-history-forward
       ;; :n "<return>"          'Info-follow-nearest-node
       ;; :n "RET"          'Info-follow-nearest-node
+      :n "q"          'ignore
       :n "C-n"          'Info-next
       :n "C-p"          'Info-prev
       :n "H"          'Info-history-back

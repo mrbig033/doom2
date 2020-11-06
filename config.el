@@ -20,6 +20,9 @@
        bitly-access-token "3026d7e8b1a0f89da10740c69fd77b4b3293151e"
        doom-font (font-spec :family "monospace" :size 27 :weight 'semi-light))
 
+(add-to-list 'display-buffer-alist
+               '("*info*" display-buffer-same-window))
+
 (put 'customize-group 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 

@@ -30,7 +30,7 @@
   (org-clock-into-drawer t)
   (org-clock-update-period 240)
   (org-clock-history-length 10)
-  (org-archive-location ".%s::")
+  (org-archive-location ".%s::datetree/")
   (org-clock-mode-line-total 'auto)
   (org-clock-persist-query-resume t)
   (org-clock-clocked-in-display nil)
@@ -218,10 +218,7 @@
   :custom
   (info-lookup-other-window-flag nil)
   :init
-  (remove-hook 'Info-mode-hook 'doom-modeline-set-info-modeline)
-  :config
-  (add-to-list 'display-buffer-alist
-               '("*info*" display-buffer-same-window)))
+  (remove-hook 'Info-mode-hook 'doom-modeline-set-info-modeline))
 ;;;;; LISPYVILLE ;;;;;
 (use-package! lispyville
   :config
