@@ -1,3 +1,6 @@
-;;; ../doom-default/.doom.d/tmp/tmp.el -*- lexical-binding: t; -*-
 
-(message "The name of this buffer is: %s." (buffer-name))
+(setq counter 0)                        ; initializer
+
+(setq counter (+ counter 1))            ; incrementer
+
+counter                                 ; the counter

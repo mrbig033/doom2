@@ -33,3 +33,7 @@
 (general-unbind 'org-capture-mode-map
   :with 'org-capture-finalize
   [remap my-indent-buffer])
+
+(general-unbind 'org-src-mode-map
+  :with 'org-edit-src-exit
+  [remap lispy-mark-symbol])

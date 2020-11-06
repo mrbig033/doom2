@@ -1,0 +1,17 @@
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("eintr"
+ (front-context-string . "1.10 Summary\n===")
+ (rear-context-string . "ist Processing\n\n")
+ (position . 86267)
+ (filename . "/usr/share/info/eintr")
+ (info-node . "Summary")
+ (handler . Info-bookmark-jump))
+("org-capture-last-stored"
+ (filename . "~/Dropbox/org/agenda.org")
+ (front-context-string . "** TODO put pomo")
+ (rear-context-string)
+ (position . 10))
+)

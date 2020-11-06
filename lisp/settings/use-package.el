@@ -3,7 +3,7 @@
 ;;;;; WHICH KEY ;;;;;
 (use-package! which-key
   :custom
-  (which-key-idle-delay 1))
+  (which-key-idle-delay 1.0))
 ;;;;; EVIL ;;;;;
 (use-package! evil
   :custom
@@ -34,6 +34,7 @@
   (org-clock-mode-line-total 'auto)
   (org-clock-persist-query-resume t)
   (org-clock-clocked-in-display nil)
+  (org-src-window-setup 'current-window)
   (org-clock-out-remove-zero-time-clocks t)
   (org-enforce-todo-checkbox-dependencies t)
   (org-clock-report-include-clocking-task t)

@@ -5,6 +5,7 @@
       :i "C-l"         'pabbrev-expand-maybe
       :n "<backspace>" 'org-edit-special
       :n "zi"          'org-show-all
+      :nvieg "M-m"          'org-edit-special
       :n "C-j"         'org-shiftleft
       :n "C-k"         'org-shiftright
       :i "C-k"         'kill-line
@@ -36,7 +37,7 @@
 
 (map! ;; :after (emacs-lisp-mode-map lisp-mode-map)
       :map (emacs-lisp-mode-map lisp-mode-map)
-      :n "<return>" 'eros-eval-last-sexp
+      :n "<C-return>" 'eros-eval-last-sexp
       :i "C-k"      'lispy-kill
       :localleader "0" 'evil-next-close-paren
       :localleader "9" 'evil-previous-open-paren)
@@ -59,6 +60,9 @@
       "q" 'ranger-close
       "<escape>" 'ranger-close
       :desc "Deer" :leader "r" 'deer)
+
+(map! :map (ivy-minibuffer-map)
+      "<C-return>" 'ivy-immediate-done)
 
 (map! :map (ivy-minibuffer-map
             ivy-switch-buffer-map
