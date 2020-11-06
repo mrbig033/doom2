@@ -2,20 +2,15 @@
          org-capture-templates
          '(("t" "Todo"
             entry
-            (file+headline +org-capture-todo-file "Todos")
+            (file+headline "~/org/agenda.org" "Todos")
             "* TODO %? %i" :prepend t)
 
            ("o" "Notes"
             entry
-            (file+headline +org-capture-notes-file "Notes")
-            "* %u %? %i" :prepend t)
-
-           ("j" "Journal"
-            entry
-            (file+olp+datetree +org-capture-journal-file)
+            (file+headline "~/org/agenda.org"  "Notes")
             "* %u %? %i" :prepend t)
 
            ("n" "Now"
             entry
-            (file+headline "now.org" "Now")
+            (file+headline "~/org/agenda.org"  "Now")
             "* %? %i" :prepend t)))

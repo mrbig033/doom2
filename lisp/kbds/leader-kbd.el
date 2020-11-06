@@ -43,6 +43,8 @@
       :desc "Flyspell Buffer"           :leader "tb"  'flyspell-buffer
       :desc "Flyspell Previous"         :leader "="   'flyspell-correct-wrapper
       :desc "Edit Hosts"                :leader "fh"  'my-edit-hosts
+      :desc "Goto Elisp"                :leader "fe"  'my-find-elisp-tmp
+      :desc "Goto Elisp Other Window"   :leader "fE"  'my-find-elisp-tmp-other-window
       :desc "New Snippet"               :leader "yn"  '+snippets/new
       :desc "Edit Snippet"              :leader "ye"  '+snippets/edit
       :desc "Find Snippet"              :leader "yf"  '+snippets/find
@@ -50,6 +52,7 @@
       :desc "Describe Keymaps"          :leader "hbb"  'describe-bindings
       :desc "Show Keymaps"              :leader "hbk"  'which-key-show-keymap
       :desc "Show Top Keymaps"          :leader "hbt"  'which-key-show-top-level
-      :desc "Show Major jKeymaps"       :leader "hbm"  'which-key-show-major-mode
+      :desc "Show Major Keymaps"        :leader "hbm"  'which-key-show-major-mode
+      :desc "Describe Package"          :leader "hdpP"  'describe-package
       :desc "Show Full Keymaps"         :leader "hbf"  'which-key-show-full-keymap
       :desc "Show Minor Keymaps"        :leader "hbi"  'which-key-show-minor-mode-keymap)

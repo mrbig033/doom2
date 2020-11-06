@@ -63,12 +63,12 @@
       "C-h"      'delete-backward-char)
 
 (map! :map (Info-mode-map)
-      :n "m"        'Info-menu
-      :n "L" 'Info-history-forward
-      :n "H" 'Info-history-back
-      :n "ci" 'clone-indirect-buffer-other-window
+      :n "m"          'Info-menu
+      :n "L"          'Info-history-forward
+      :n "H"          'Info-history-back
+      :n "ci"         'clone-indirect-buffer-other-window
       :n "<C-return>" 'my-evaluate-next-sexp
-      :n "M-n" 'my-evaluate-next-sexp)
+      :n "M-n"        'my-evaluate-next-sexp)
 
 (defun my-evaluate-next-sexp ()
   (interactive)

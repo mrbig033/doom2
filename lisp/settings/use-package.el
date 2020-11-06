@@ -169,6 +169,8 @@
     (insert " ")))
 ;;;;; EYEBROWSE ;;;;;
 (use-package! eyebrowse
+  :custom
+  (eyebrowse-new-workspace t)
   :config
   (eyebrowse-mode +1))
 ;;;;; CLIPMON ;;;;;
@@ -177,8 +179,13 @@
   (clipmon-mode-start))
 ;;;;; INFO ;;;;;
 (use-package! info
+  :custom
+  (info-lookup-other-window-flag nil)
   :init
-  (remove-hook 'Info-mode-hook 'doom-modeline-set-info-modeline))
+  (remove-hook 'Info-mode-hook 'doom-modeline-set-info-modeline)
+  :config
+ (add-to-list 'display-buffer-alist
+               '("*info*" display-buffer-same-window)))
 ;;;;; LISPYVILLE ;;;;;
 (use-package! lispyville
   :config

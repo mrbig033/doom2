@@ -178,6 +178,14 @@
   ;; (insert "\n\n")
   (evil-insert-state))
 
+(defun my-find-elisp-tmp ()
+  (interactive)
+  (find-file "~/doom-default/.doom.d/tmp/tmp.el"))
+
+(defun my-find-elisp-tmp-other-window ()
+  (interactive)
+  (find-file-other-window "~/doom-default/.doom.d/tmp/tmp.el"))
+
 (defun my-edit-hosts ()
   (interactive)
   (doom/sudo-find-file "/etc/hosts"))
