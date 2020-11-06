@@ -42,6 +42,7 @@
       :desc "Flyspell Mode"             :leader "tS"  'flyspell-mode
       :desc "Flyspell Buffer"           :leader "tb"  'flyspell-buffer
       :desc "Flyspell Previous"         :leader "="   'flyspell-correct-wrapper
+      :desc "Edit Hosts"                :leader "fh"  'my-edit-hosts
       :desc "New Snippet"               :leader "yn"  '+snippets/new
       :desc "Edit Snippet"              :leader "ye"  '+snippets/edit
       :desc "Find Snippet"              :leader "yf"  '+snippets/find

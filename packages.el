@@ -63,10 +63,8 @@
 (package! elmacro)
 (package! typo)
 (package! poet-theme)
-(package! easy-hugo)
-
 (package! yasnippet-snippets)
-;; (package! yasnippet :disable t)
 
+(package! evil-lion :disable t)
 (package! evil-snipe :disable t)
 (package! doom-snippets :disable t)

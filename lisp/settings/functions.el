@@ -178,6 +178,9 @@
   ;; (insert "\n\n")
   (evil-insert-state))
 
+(defun my-edit-hosts ()
+  (interactive)
+  (doom/sudo-find-file "/etc/hosts"))
 
 (defun endless/simple-get-word ()
   (car-safe (save-excursion (ispell-get-word nil))))
