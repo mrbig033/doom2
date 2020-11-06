@@ -6,8 +6,6 @@
       :desc "Xah Clean Empty Lines"     :leader "tD"  'xah-clean-empty-lines
       :desc "Visible Mode"              :leader "tv"  'visible-mode
       :desc "Change Dictionary"         :leader "td"  'ispell-change-dictionary
-      :desc "Delete Window"             :leader "0"   'delete-window
-      :desc "Quit Window"               :leader "Q"   'quit-window
       :desc "Switch to Scratch"         :leader "X"   'doom/switch-to-scratch-buffer
       :desc "Open Scratch"              :leader "x"   'doom/open-scratch-buffer
       :desc "Eyebrowse New"             :leader "v"   'eyebrowse-create-window-config

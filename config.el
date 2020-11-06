@@ -24,7 +24,7 @@
 
 (mouse-avoidance-mode 'banish)
 (global-auto-revert-mode t)
-(global-pabbrev-mode t)
+;; (global-pabbrev-mode t)
 
 ;;;;; LOAD FILES ;;;;;
 (mapc 'load (file-expand-wildcards "~/.doom.d/lisp/settings/*.el"))

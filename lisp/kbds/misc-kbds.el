@@ -9,6 +9,7 @@
       :n "g."        'evil-repeat
       :n "."         'counsel-M-x
       :i "M-/"       'hippie-expand
+      :i "C-k"                            'kill-line
       :nvieg "C-."   'my-search-settings
       :nvieg "C-,"   'helpful-at-point
       :nvieg "C-c i" 'insert-char

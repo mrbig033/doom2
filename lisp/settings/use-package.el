@@ -46,7 +46,7 @@
   (require 'ox-extra)
   (ox-extras-activate '(ignore-headlines)))
 ;;;;; ORG POMODORO ;;;;
-(use-package org-pomodoro
+(use-package! org-pomodoro
   :after org
   :custom
   (org-pomodoro-offset 1)
@@ -66,7 +66,8 @@
 ;;;;; https://bit.ly/3kE3Pcl ;;;;
 (use-package! evil-org
   :config
-  (remove-hook 'org-tab-first-hook '+org-cycle-only-current-subtree-h))
+  (remove-hook 'org-tab-first-hook '+org-cycle-only-current-subtree-h)
+  (add-hook 'org-cycle-hook 'org-cycle-hide-drawers))
 ;;;;; RANGER ;;;;;
 (use-package! ranger
   ;; :demand t
@@ -215,9 +216,13 @@
   :init
   (remove-hook 'Info-mode-hook 'doom-modeline-set-info-modeline)
   :config
- (add-to-list 'display-buffer-alist
+  (add-to-list 'display-buffer-alist
                '("*info*" display-buffer-same-window)))
 ;;;;; LISPYVILLE ;;;;;
 (use-package! lispyville
   :config
   (defalias 'lispyville-yank 'evil-yank))
+;;;; HL-SENTENCE ;;;;
+(use-package! hl-sentence
+  :custom-face
+  (hl-sentence ((t (:inherit hl-line)))))

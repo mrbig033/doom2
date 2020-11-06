@@ -7,6 +7,8 @@
       :n "zi"          'org-show-all
       :n "C-j"         'org-shiftleft
       :n "C-k"         'org-shiftright
+      :desc "Goto Clock"      :localleader "cs" 'org-clock-display
+      ;; :desc "Display Clocked" :localleader "cg" 'org-clock-goto
       "C-M-k"          'org-metaup
       "C-M-j"          'org-metadown
       "C-k"            'org-shiftleft
@@ -31,8 +33,12 @@
 (map! :map (prog-mode-map conf-mode-map)
       :nvieg "C-9" 'my-comment-line)
 
-(map! :map (emacs-lisp-mode-map)
-      :n "<return>" 'eros-eval-last-sexp)
+(map! ;; :after (emacs-lisp-mode-map lisp-mode-map)
+      :map (emacs-lisp-mode-map lisp-mode-map)
+      :n "<return>" 'eros-eval-last-sexp
+      :i "C-k"      'lispy-kill
+      :localleader "0" 'evil-next-close-paren
+      :localleader "9" 'evil-previous-open-paren)
 
 (map! :map (flycheck-mode-map)
       :nvieg "C-c f"    'flycheck-first-error)
@@ -53,9 +59,6 @@
       "<escape>" 'ranger-close
       :desc "Deer" :leader "r" 'deer)
 
-(map! :nv "f" 'avy-goto-char-2-below
-      :nv "F" 'avy-goto-char-2-above)
-
 (map! :map (ivy-minibuffer-map
             ivy-switch-buffer-map
             minibuffer-local-map
@@ -66,12 +69,15 @@
       "C-h"      'delete-backward-char)
 
 (map! :map (Info-mode-map)
+      :n "<escape>" 'my-force-normal-state
       :n "m"          'Info-menu
       :n "L"          'Info-history-forward
+      :n "C-n"          'Info-next
+      :n "C-p"          'Info-prev
       :n "H"          'Info-history-back
       :n "ci"         'clone-indirect-buffer-other-window
       :n "<C-return>" 'my-evaluate-next-sexp
-      :n "M-n"        'my-evaluate-next-sexp)
+      :n "M-n"        'forward-paragraph)
 
 (defun my-evaluate-next-sexp ()
   (interactive)
