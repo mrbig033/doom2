@@ -1,6 +1,6 @@
 ;;; kbds/override-kbds.el -*- lexical-binding: t; -*-
 
-( map! :map override
+(map! :map override
        :n "C-s"                            'counsel-grep-or-swiper
        :i "C-u"                            'my-backward-kill-line
        :n "gr"                             'my-sel-to-end

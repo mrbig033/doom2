@@ -20,6 +20,7 @@
        doom-font (font-spec :family "monospace" :size 27 :weight 'semi-light))
 
 (put 'customize-group 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 
 (mouse-avoidance-mode 'banish)
 (global-auto-revert-mode t)

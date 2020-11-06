@@ -1,6 +1,12 @@
-;;; ../doom-default/.doom.d/tmp/tmp.el -*- lexical-binding: t; -*-
-
-     '(rose
-       violet
-       daisy
-       buttercup)
+  (org-clock-persist t)
+  (org-clock-in-resume t)
+  (org-clock-into-drawer t)
+  (org-clock-history-length 10)
+  (org-clock-update-period 240)
+  (org-clock-mode-line-total 'auto)
+  (org-clock-persist-query-resume t)
+  (org-clock-out-remove-zero-time-clocks t)
+  (org-clock-report-include-clocking-task t)
+  (org-clock-clocked-in-display nil)
+  (org-clock-auto-clock-resolution when-no-clock-is-running)
+  (setq org-drawers (quote ("PROPERTIES" "LOGBOOK"))) ;; Separate drawers for clocking and logs

@@ -22,19 +22,46 @@
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (remove-hook 'org-mode-hook 'flyspell-mode)
   :custom
-  (org-log-into-drawer t)
-  (org-clock-into-drawer t)
-  (org-drawers (quote ("properties" "logbook")))   ;; Separate drawers for clocking and logs
-  (org-archive-location ".%s::")
   (org-ellipsis ".")
+  (org-clock-persist t)
+  (org-log-into-drawer t)
+  (org-clock-in-resume t)
   (org-directory "~/org/")
+  (org-clock-into-drawer t)
+  (org-clock-update-period 240)
+  (org-clock-history-length 10)
+  (org-archive-location ".%s::")
+  (org-clock-mode-line-total 'auto)
+  (org-clock-persist-query-resume t)
+  (org-clock-clocked-in-display nil)
+  (org-clock-out-remove-zero-time-clocks t)
   (org-enforce-todo-checkbox-dependencies t)
+  (org-clock-report-include-clocking-task t)
   (org-src-ask-before-returning-to-edit-buffer nil)
+  (org-clock-auto-clock-resolution 'when-no-clock-is-running)
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s)" "|" "DONE(d)")))
+  (org-drawers (quote ("properties" "logbook"))) ;; Separate drawers for clocking and logs
   :config
   (load-file "~/.doom.d/lisp/settings/org-capture-templates.el")
   (require 'ox-extra)
   (ox-extras-activate '(ignore-headlines)))
+;;;;; ORG POMODORO ;;;;
+(use-package org-pomodoro
+  :after org
+  :custom
+  (org-pomodoro-offset 1)
+  (org-pomodoro-start-sound-args t)
+  (org-pomodoro-length (* 25 org-pomodoro-offset))
+  (org-pomodoro-short-break-length (/ org-pomodoro-length 5))
+  (org-pomodoro-long-break-length (* org-pomodoro-length 0.8))
+  (org-pomodoro-long-break-frequency 4)
+  (org-pomodoro-ask-upon-killing nil)
+  (org-pomodoro-manual-break t)
+  (org-pomodoro-keep-killed-pomodoro-time t)
+  (org-pomodoro-time-format "%.2m")
+  (org-pomodoro-short-break-format "SHORT: %s")
+  (org-pomodoro-long-break-format "LONG: %s")
+  (org-pomodoro-format "P: %s"))
 ;;;;; EVIL ORG ;;;;;
 ;;;;; https://bit.ly/3kE3Pcl ;;;;
 (use-package! evil-org

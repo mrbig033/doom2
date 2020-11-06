@@ -31,6 +31,9 @@
 (map! :map (prog-mode-map conf-mode-map)
       :nvieg "C-9" 'my-comment-line)
 
+(map! :map (emacs-lisp-mode-map)
+      :n "<return>" 'eros-eval-last-sexp)
+
 (map! :map (flycheck-mode-map)
       :nvieg "C-c f"    'flycheck-first-error)
 
