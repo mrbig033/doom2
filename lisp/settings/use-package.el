@@ -115,7 +115,11 @@
                               counsel-M-x
                               next-buffer
                               +eval/buffer
-                              previous-buffer))
+                              previous-buffer
+                              eyebrowse-next-window-config
+                              eyebrowse-last-window-config
+                              eyebrowse-create-window-config
+                              eyebrowse-close-window-config))
 
   (add-to-list 'super-save-hook-triggers 'find-file-hook)
 
