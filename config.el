@@ -1,5 +1,8 @@
 ;;;;; SETTINGS ;;;;;
+;;;;;
+
 (setq! doom-theme 'doom-one
+       dracula-enlarge-headings nil
        markdown-hide-urls t
        eldoc-idle-delay 100
        windmove-wrap-around t
@@ -24,6 +27,8 @@
 
 (put 'customize-group 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+(put 'scroll-left 'disabled nil)
+
 (load-file "~/.doom.d/lisp/cool-moves/cool-moves.el")
 (mouse-avoidance-mode 'banish)
 (global-auto-revert-mode t)
@@ -138,7 +143,13 @@
 
 (defun my-search-settings ()
   (interactive)
-  (counsel-ag nil "~/.doom.d/" "-f -G '.el'"))
+  (counsel-ag nil "~/.doom.d/" "-f -G 'config.org\|init.el\|packages.el'"))
+
+;; org src buffer name
+(defun my-org-edit-special ()
+  (interactive)
+  (org-edit-special)
+  (my-recenter-window))
 
 (defun my-evaluate-next-sexp ()
   (interactive)
@@ -280,17 +291,13 @@
   ;; (insert "\n\n")
   (evil-insert-state))
 
-(defun my-find-config ()
-  (interactive)
-  (find-file "~/.doom.d/config.org"))
-
 (defun my-find-elisp-tmp ()
   (interactive)
-  (find-file "~/doom-default/.doom.d/tmp/tmp.el"))
+  (find-file "~/.doom.d/tmp/tmp.el"))
 
 (defun my-find-elisp-tmp-other-window ()
   (interactive)
-  (find-file-other-window "~/doom-default/.doom.d/tmp/tmp.el"))
+  (find-file-other-window "~/.doom.d/tmp/tmp.el"))
 
 (defun my-edit-hosts ()
   (interactive)
@@ -315,6 +322,299 @@
   (interactive)
   (recenter-top-bottom
    `(4)))
+
+(map! :desc "Yank Dirname"              :leader "fY"  'my-yank-dirname-as-kill
+      :desc "My Rename"                 :leader "fR"  'my-rename-file-and-buffer
+      :desc "Trash File"                :leader "fD"  'move-file-to-trash
+      :desc "Goto Scratch"              :leader "fs"  'my-switch-to-scratch
+      :desc "Find Config"               :leader "fc"  'my-find-config
+      :desc "Edit Hosts"                :leader "fh"  'my-edit-hosts
+      :desc "Goto Elisp"                :leader "fe"  'my-find-elisp-tmp
+      :desc "Goto Elisp Other Window"   :leader "fE"  'my-find-elisp-tmp-other-window
+      :desc "Tangle Config"             :leader "ft"  'my-tangle-py-config
+
+      :desc "Lispy Interaction Mode"    :leader "ml"  'lisp-interaction-mode
+      :desc "My Lispy Interaction Mode" :leader "mL"  'my-lisp-interaction-mode
+      :desc "Markdown Mode"             :leader "mm"  'markdown-mode
+      :desc "My Markdown Mode"          :leader "mM"  'my-markdown-mode
+      :desc "Fundamental Mode"          :leader "mf"  'fundamental-mode
+      :desc "My Fundamental Mode"       :leader "mF"  'my-fundamental-mode
+      :desc "Text Mode"                 :leader "mt"  'text-mode
+      :desc "Text Mode"                 :leader "mT"  'my-text-mode
+      :desc "Typo Mode"                 :leader "my"  'typo-mode
+      :desc "Org Mode"                  :leader "mo"  'org-mode
+      :desc "My Org Mode"               :leader "mO"  'my-org-mode
+      :desc "My Eval Buffer"            :leader "meb" '+eval/buffer
+
+      :desc "Disable Theme"             :leader "hT"  'disable-theme
+      :desc "Describe Keymaps"          :leader "hbb"  'describe-bindings
+      :desc "Show Keymaps"              :leader "hbk"  'which-key-show-keymap
+      :desc "Show Top Keymaps"          :leader "hbt"  'which-key-show-top-level
+      :desc "Show Major Keymaps"        :leader "hbm"  'which-key-show-major-mode
+      :desc "Describe Package"          :leader "hdpP"  'describe-package
+      :desc "Show Full Keymaps"         :leader "hbf"  'which-key-show-full-keymap
+      :desc "Show Minor Keymaps"        :leader "hbi"  'which-key-show-minor-mode-keymap
+
+      :desc "Flyspell Mode"             :leader "tS"  'flyspell-mode
+      :desc "Flyspell Buffer"           :leader "tb"  'flyspell-buffer
+      :desc "Olivetti"                  :leader "to"  'olivetti-mode
+      :desc "Xah Clean Empty Lines"     :leader "tD"  'xah-clean-empty-lines
+      :desc "Visible Mode"              :leader "tv"  'visible-mode
+      :desc "Change Dictionary"         :leader "td"  'ispell-change-dictionary
+      :desc "Highlight Line"            :leader "th"  'hl-line-mode
+      :desc "Hide Mode Line"            :leader "tH"  'hide-mode-line-mode
+      :desc "Highlight Sentence"        :leader "ts"  'hl-sentence-mode
+
+      :desc "New Snippet"               :leader "yn"  '+snippets/new
+      :desc "Edit Snippet"              :leader "ye"  '+snippets/edit
+      :desc "Find Snippet"              :leader "yf"  '+snippets/find
+      :desc "Reload All"                :leader "yr"  'yas-reload-all
+      :desc "Insert Snippet"            :leader "yi"  'yas-insert-snippet
+
+      :desc "My Package Commands"       :leader "scp" 'my-show-package-commands
+      :desc "My Server Commands"        :leader "scs" 'my-show-server-commands
+      :desc "My Info Commands"          :leader "sci" 'my-show-info-commands
+
+      :desc "Bash Shebang"              :leader "ib"   'my-bash-shebang
+      :desc "Python Shebang"            :leader "ip"   'my-python-shebang
+
+      :desc "Delete Window"             :leader "0"  'delete-window
+
+      :desc "Open Scratch"              :leader "x"   'doom/open-scratch-buffer
+      :desc "Switch to Scratch"         :leader "X"   'doom/switch-to-scratch-buffer
+
+      :desc "Eyebrowse New"             :leader "v"   'eyebrowse-create-window-config
+      :desc "Eyebrowse Close"           :leader "V"   'eyebrowse-close-window-config
+
+      :desc "Kill Buffer"               :leader "k"   'kill-this-buffer
+      :desc "My Eval Buffer"            :leader "e"   'my-eval-buffer
+      :desc "Link Hint Open Link"       :leader "l"   'link-hint-open-link
+      :desc "Flyspell Previous"         :leader "="   'flyspell-correct-wrapper
+
+      :desc "Goto Dashboard"            :leader "gd"  '+doom-dashboard/open
+      :desc "Clone Buffer"              :leader "wC"  'clone-indirect-buffer-other-window)
+
+;;;;; ORG ;;;;;
+(map! :map (evil-org-mode-map org-mode-map)
+      :i "C-l"                                     'pabbrev-expand-maybe
+      :n "<backspace>"                             'org-edit-special
+      :n "zi"                                      'org-show-all
+      :nvieg "M-m"                                 'my-org-edit-special
+      :n "C-j"                                     'org-shiftleft
+      :n "C-k"                                     'org-shiftright
+      :i "C-k"                                     'kill-line
+      "C-ç"                                        'counsel-outline
+      "C-M-k"                                      'org-metaup
+      "C-M-j"                                      'org-metadown
+      "C-k"                                        'org-shiftleft
+      "C-c b"                                      'org-cycle-list-bullet
+      "C-c C-s"                                    'org-emphasize
+      :desc "Goto Clock"      :localleader "cs"    'org-clock-display
+      ;; :desc "Display Clocked" :localleader "cg" 'org-clock-goto
+      )
+
+(map! :map (my-org-mode-map
+            my-lisp-interaction-mode-map
+            my-markdown-mode
+            my-fundamental-mode
+            my-text-mode
+            my-org-mode)
+      :n "<escape>" 'my-force-normal-state
+      :n "q"        'quit-window)
+
+;;;;; PROG AND TEXT;;;;;
+(map! :map (prog-mode-map)
+      :n "<tab>" 'outline-toggle-children
+      :ni "C-c h" 'outline-hide-body
+      :ni "C-c s" 'outline-show-all
+      :ni "C-c o" 'outline-hide-other)
+
+(map! :map (prog-mode-map text-mode-map conf-mode-map)
+      :nvieg "<C-backspace>" 'my-comment-line)
+
+(map! :map (occur-mode-map)
+      :n "q" 'quit-window)
+
+(map! :map (emacs-lisp-mode-map lisp-mode-map)
+      :n "<C-return>" 'eros-eval-last-sexp
+      :n "C-m" 'eros-eval-last-sexp
+      :i "C-k"      'lispy-kill
+      :nvieg "M-," 'evil-previous-open-paren
+      :nvieg "M-." 'evil-next-close-paren
+      :localleader "0" 'evil-next-close-paren
+      :localleader "9" 'evil-previous-open-paren)
+
+(map! :map (flycheck-mode-map)
+      :nvieg "C-c f"    'flycheck-first-error)
+
+(map! :map (text-mode-map
+            prog-mode-map
+            conf-mode-map)
+      :n "<escape>"    'my-save-buffer)
+
+(map! :map (pabbrev-mode-map)
+      :i "C-9" 'pabbrev-expand-maybe)
+;;;;; MISC ;;;;;
+(map! :map (help-mode-map helpful-mode-map)
+      :n "<escape>"    'my-force-normal-state)
+
+(map! :map ranger-mode-map
+      "q" 'ranger-close
+      "<escape>" 'ranger-close
+      :desc "Deer" :leader "r" 'deer)
+
+(map! :map (ivy-minibuffer-map)
+      "<C-return>" 'ivy-immediate-done)
+
+(map! :map (ivy-minibuffer-map
+            ivy-switch-buffer-map
+            minibuffer-local-map
+            read-expression-map)
+      "C-,"      'ivy-previous-line
+      "C-."      'ivy-next-line
+      "C-k"      'kill-line
+      "C-h"      'delete-backward-char)
+
+(map! :map (Info-mode-map)
+      :n "<escape>" 'my-force-normal-state
+      :n "m"          'Info-menu
+      :n "L"          'Info-history-forward
+      :n "<right>"          'evil-forward-sentence-begin
+      :n "<left>"          'evil-backward-sentence-begin
+      ;; :n "<return>"          'Info-follow-nearest-node
+      ;; :n "RET"          'Info-follow-nearest-node
+      :n "q"          'ignore
+      :n "C-n"          'Info-next
+      :n "C-p"          'Info-prev
+      :n "H"          'Info-history-back
+      :n "ci"         'clone-indirect-buffer-other-window
+      :n "<C-return>" 'eros-eval-last-sexp
+      :n "M-n"        'forward-paragraph)
+
+(map! :map override
+      :nv "f"                                'avy-goto-char-2-below
+      :nv "F"                                'avy-goto-char-2-above
+      :n "C-s"                               '+default/search-buffer
+      :i "C-u"                               'my-backward-kill-line
+      :n "gr"                                'my-sel-to-end
+      :n "ge"                                'evil-end-of-visual-line
+      :n "M-e"                               'evil-forward-sentence-begin
+      :n "M-a"                               'evil-backward-sentence-begin
+      :n "0"                                 'evil-beginning-of-visual-line
+      :n "g0"                                'evil-digit-argument-or-evil-beginning-of-line
+      :n "!"                                 'my-delete-frame
+      :n "Q"                                 'my-delete-frame
+      :i "C-d"                               'delete-char
+      :i "C-h"                               'delete-backward-char
+      :i "C-n"                               'next-line
+      :i "C-p"                               'previous-line
+      :i "C-e"                               'move-end-of-line
+      :i "C-a"                               'move-beginning-of-line
+      :ni "<M-return>"                       'my-indent-buffer
+      :nvieg "<f8>"                          'man
+      :nvieg "C-c <f12>"                     'counsel-org-capture
+      :nvieg "C-c m"                         'evil-record-macro
+      :nvieg "C-S-j"                         'cool-moves/line-forward
+      :nvieg "C-S-k"                         'cool-moves/line-backward
+      :nvieg "M-y"                           'counsel-yank-pop
+      :nvieg "M-9"                           'delete-window
+      :nvieg "M-0"                           'quit-window
+      :nvieg "C-0"                           'doom/window-maximize-buffer
+      :nvieg "C-9"                           'doom/window-enlargen
+      :nvieg "M--"                           'winner-undo
+      :nvieg "M-="                           'winner-redo
+      :nvieg "M-k"                           'windmove-up
+      :nvieg "M-j"                           'windmove-down
+      :nvieg "M-h"                           'windmove-left
+      :nvieg "M-l"                           'windmove-right
+      :nvieg "<M-up>"                        'windmove-up
+      :nvieg "<M-down>"                      'windmove-down
+      :nvieg "<M-left>"                      'windmove-left
+      :nvieg "<M-right>"                     'windmove-right
+      :desc "Capture"             :n "Ç"     'org-capture
+      :desc "Capture Todo"        :n "ç" 'my-org-capture-todo-macro
+
+      ;; :desc "Capture Goto Last"   :n "çl" 'org-capture-goto-last-stored
+      ;; :desc "Capture Goto Target" :n "çt" 'org-capture-goto-target
+      "C-c SPC"                              'caps-lock-mode
+      "C-c q"                                'quick-calc
+      "M-w"                                  'eyebrowse-next-window-config
+      "M-q"                                  'eyebrowse-prev-window-config
+      "C-c a"                                'align-regexp
+      "C-'"                                  'org-cycle-agenda-files
+      :nvieg "M-,"                           'projectile-next-project-buffer
+      :nvieg "M-."                           'projectile-previous-project-buffer
+      "<C-down>"                             'cool-moves/paragraph-forward
+      "<C-up>"                               'cool-moves/paragraph-backward
+      "C-S-j"                                'cool-moves/line-forward
+      "C-S-k"                                'cool-moves/line-backward
+      "C-S-n"                                'cool-moves/word-forward
+      "C-S-p"                                'cool-moves/word-backwards)
+
+(general-unbind '(scratch-mode-map my-org-mode-map)
+  :with 'my-force-normal-state
+  [remap my-save-buffer]
+  [remap save-buffer])
+
+(general-unbind 'normal lisp-interaction-mode-map
+  :with 'ignore
+  [remap my-save-buffer])
+
+(general-unbind +doom-dashboard-mode-map
+  :with 'forward-button
+  [remap evil-better-visual-line-next-line])
+
+(general-unbind +doom-dashboard-mode-map
+  :with 'backward-button
+  [remap evil-better-visual-line-previous-line])
+
+(general-unbind +doom-dashboard-mode-map
+  :with 'quit-window
+  [remap evil-record-macro]
+  [remap evil-force-normal-state])
+
+(general-unbind +doom-dashboard-mode-map
+  :with 'push-button
+  [remap evil-forward-char])
+
+(general-unbind 'lispyville-mode-map
+  :with 'lispy-repeat
+  [remap evil-repeat])
+
+(general-unbind 'lispyville-mode-map
+  :with 'evil-switch-to-windows-last-buffer
+  [remap lispy-splice])
+
+(general-unbind 'org-capture-mode-map
+  :with 'org-capture-finalize
+  [remap my-indent-buffer])
+
+(general-unbind 'org-src-mode-map
+  :with 'org-edit-src-exit
+  [remap lispy-mark-symbol])
+
+;; (define-key key-translation-map (kbd "s-(") (kbd "{"))
+(define-key key-translation-map (kbd "<pause>") (kbd "C-c"))
+(define-key key-translation-map (kbd "<menu>") (kbd "C-x"))
+
+(map! :n "'"         'evil-goto-mark
+      :n "`"         'evil-goto-mark-line
+      :n "g."        'evil-repeat
+      :n ","         'ivy-switch-buffer
+      :n "."         'counsel-find-file
+      :n "g4"         'evil-backward-word-end
+      :i "M-/"       'hippie-expand
+      :n "go"         'cool-moves/open-line-below
+      :n "gO"         'cool-moves/open-line-above
+      "M-s"                               'evil-switch-to-windows-last-buffer
+      :i "C-k"                            'kill-line
+      :nvieg "C-."   'my-search-settings
+      :nvieg "C-,"   'helpful-at-point
+      :nvieg "C-c i" 'insert-char
+      "C-c r"        '+popup/raise
+      "C-h m"        'my-show-major-mode
+      "M-p"          'backward-paragraph
+      "M-n"          'forward-paragraph)
 
 ;; (use-package org-plus-contrib)
 (use-package! org
@@ -352,6 +652,11 @@
   (org-todo-keywords '((sequence "TODO(t)" "STRT(s)" "|" "DONE(d)")))
   (org-drawers (quote ("properties" "logbook"))) ;; Separate drawers for clocking and logs
   :config
+
+  ;; source: https://bit.ly/38iBxkd
+  (defun org-src--construct-edit-buffer-name (org-buffer-name lang)
+    (concat "[s] " org-buffer-name ""))
+
   (setq! system-time-locale "C"
          org-capture-templates
          '(("t" "Todo"
@@ -506,6 +811,8 @@
 
 (use-package! ivy
   :custom
+  ;; source:(https://bit.ly/32hmYcU)
+  (swiper-use-visual-line nil)
   (ivy-height 15)
   (ivy-extra-directories nil)
   (counsel-outline-display-style 'title)
@@ -513,7 +820,9 @@
   (counsel-bookmark-avoid-dired t)
   (counsel-grep-swiper-limit 5000)
   (ivy-ignore-buffers '("^#.*#$"
-                        "^\\*.*\\*")))
+                        "^\\*.*\\*"))
+  :config
+  (setq swiper-use-visual-line-p (lambda (a) nil)))
 
 (use-package! evil
   :custom
@@ -540,8 +849,8 @@
 
 (use-package! olivetti
   :hook (Info-mode . olivetti-mode)
-  :custom
-  (olivetti-body-width 100))
+  :init
+  (setq-default olivetti-body-width '100))
 
 (use-package! eyebrowse
   :custom
@@ -572,278 +881,3 @@
 (use-package! zoom
   :custom
   (zoom-size '(0.618 . 0.618)))
-
-(map! :desc "Kill Buffer"               :leader "k"   'kill-this-buffer
-      :desc "Yank Dirname"              :leader "fY"  'my-yank-dirname-as-kill
-      :desc "Delete Window"             :leader "0"  'delete-window
-      :desc "Olivetti"                  :leader "to"  'olivetti-mode
-      :desc "Xah Clean Empty Lines"     :leader "tD"  'xah-clean-empty-lines
-      :desc "Visible Mode"              :leader "tv"  'visible-mode
-      :desc "Change Dictionary"         :leader "td"  'ispell-change-dictionary
-      :desc "Switch to Scratch"         :leader "X"   'doom/switch-to-scratch-buffer
-      :desc "Open Scratch"              :leader "x"   'doom/open-scratch-buffer
-      :desc "Eyebrowse New"             :leader "v"   'eyebrowse-create-window-config
-      :desc "Eyebrowse Close"           :leader "V"   'eyebrowse-close-window-config
-      :desc "Goto Dashboard"            :leader "gd"  '+doom-dashboard/open
-      :desc "My Package Commands"       :leader "scp" 'my-show-package-commands
-      :desc "My Server Commands"        :leader "scs" 'my-show-server-commands
-      :desc "My Info Commands"          :leader "sci" 'my-show-info-commands
-      :desc "Clone Buffer"              :leader "wC"  'clone-indirect-buffer-other-window
-      :desc "Insert Snippet"            :leader "yi"  'yas-insert-snippet
-      :desc "My Rename"                 :leader "fR"  'my-rename-file-and-buffer
-      :desc "My Eval Buffer"            :leader "meb" '+eval/buffer
-      :desc "My Eval Buffer"            :leader "e"   'my-eval-buffer
-      :desc "Trash File"                :leader "fD"  'move-file-to-trash
-      :desc "Goto Scratch"              :leader "fs"  'my-switch-to-scratch
-      :desc "Highlight Line"            :leader "th"  'hl-line-mode
-      :desc "Hide Mode Line"            :leader "tH"  'hide-mode-line-mode
-      :desc "Highlight Sentence"        :leader "ts"  'hl-sentence-mode
-      :desc "Disable Theme"             :leader "hT"  'disable-theme
-      :desc "Lispy Interaction Mode"    :leader "ml"  'lisp-interaction-mode
-      :desc "My Lispy Interaction Mode" :leader "mL"  'my-lisp-interaction-mode
-      :desc "Markdown Mode"             :leader "mm"  'markdown-mode
-      :desc "My Markdown Mode"          :leader "mM"  'my-markdown-mode
-      :desc "Fundamental Mode"          :leader "mf"  'fundamental-mode
-      :desc "My Fundamental Mode"       :leader "mF"  'my-fundamental-mode
-      :desc "Text Mode"                 :leader "mt"  'text-mode
-      :desc "Text Mode"                 :leader "mT"  'my-text-mode
-      :desc "Typo Mode"                 :leader "my"  'typo-mode
-      :desc "Org Mode"                  :leader "mo"  'org-mode
-      :desc "My Org Mode"               :leader "mO"  'my-org-mode
-      :desc "Link Hint Open Link"       :leader "l"   'link-hint-open-link
-      :desc "Bash Shebang"              :leader "ib"   'my-bash-shebang
-      :desc "Python Shebang"            :leader "ip"   'my-python-shebang
-      :desc "Flyspell Mode"             :leader "tS"  'flyspell-mode
-      :desc "Flyspell Buffer"           :leader "tb"  'flyspell-buffer
-      :desc "Flyspell Previous"         :leader "="   'flyspell-correct-wrapper
-      :desc "Edit Hosts"                :leader "fh"  'my-edit-hosts
-      :desc "Goto Elisp"                :leader "fe"  'my-find-elisp-tmp
-      :desc "Goto Elisp Other Window"   :leader "fE"  'my-find-elisp-tmp-other-window
-      :desc "Tangle Config"   :leader "ft"  'my-tangle-py-config
-      :desc "New Snippet"               :leader "yn"  '+snippets/new
-      :desc "Edit Snippet"              :leader "ye"  '+snippets/edit
-      :desc "Find Snippet"              :leader "yf"  '+snippets/find
-      :desc "Reload All"                :leader "yr"  'yas-reload-all
-      :desc "Describe Keymaps"          :leader "hbb"  'describe-bindings
-      :desc "Show Keymaps"              :leader "hbk"  'which-key-show-keymap
-      :desc "Show Top Keymaps"          :leader "hbt"  'which-key-show-top-level
-      :desc "Show Major Keymaps"        :leader "hbm"  'which-key-show-major-mode
-      :desc "Describe Package"          :leader "hdpP"  'describe-package
-      :desc "Show Full Keymaps"         :leader "hbf"  'which-key-show-full-keymap
-      :desc "Show Minor Keymaps"        :leader "hbi"  'which-key-show-minor-mode-keymap)
-
-;;;;; ORG ;;;;;
-(map! :map (evil-org-mode-map org-mode-map)
-      :i "C-l"         'pabbrev-expand-maybe
-      :n "<backspace>" 'org-edit-special
-      :n "zi"          'org-show-all
-      :nvieg "M-m"          'org-edit-special
-      :n "C-j"         'org-shiftleft
-      :n "C-k"         'org-shiftright
-      :i "C-k"         'kill-line
-      "C-ç" 'counsel-outline
-      "C-M-k"          'org-metaup
-      "C-M-j"          'org-metadown
-      "C-k"            'org-shiftleft
-      "C-c b"          'org-cycle-list-bullet
-      "C-c C-s"        'org-emphasize
-      :desc "Goto Clock"      :localleader "cs" 'org-clock-display
-      ;; :desc "Display Clocked" :localleader "cg" 'org-clock-goto
-      )
-
-(map! :map (my-org-mode-map
-            my-lisp-interaction-mode-map
-            my-markdown-mode
-            my-fundamental-mode
-            my-text-mode
-            my-org-mode)
-      :n "<escape>" 'my-force-normal-state
-      :n "q"        'quit-window)
-
-;;;;; PROG AND TEXT;;;;;
-(map! :map (prog-mode-map)
-      :n "<tab>" 'outline-toggle-children
-      :ni "C-c h" 'outline-hide-body
-      :ni "C-c s" 'outline-show-all
-      :ni "C-c o" 'outline-hide-other)
-
-(map! :map (prog-mode-map conf-mode-map)
-      :nvieg "<C-backspace>" 'my-comment-line)
-
-(map! :map (emacs-lisp-mode-map lisp-mode-map)
-      :n "<C-return>" 'eros-eval-last-sexp
-      :n "C-m" 'eros-eval-last-sexp
-      :i "C-k"      'lispy-kill
-      :nvieg "M-," 'evil-previous-open-paren
-      :nvieg "M-." 'evil-next-close-paren
-      :localleader "0" 'evil-next-close-paren
-      :localleader "9" 'evil-previous-open-paren)
-
-(map! :map (flycheck-mode-map)
-      :nvieg "C-c f"    'flycheck-first-error)
-
-(map! :map (text-mode-map
-            prog-mode-map
-            conf-mode-map)
-      :n "<escape>"    'my-save-buffer)
-
-(map! :map (pabbrev-mode-map)
-      :i "C-9" 'pabbrev-expand-maybe)
-;;;;; MISC ;;;;;
-(map! :map (help-mode-map helpful-mode-map)
-      :n "<escape>"    'my-force-normal-state)
-
-(map! :map ranger-mode-map
-      "q" 'ranger-close
-      "<escape>" 'ranger-close
-      :desc "Deer" :leader "r" 'deer)
-
-(map! :map (ivy-minibuffer-map)
-      "<C-return>" 'ivy-immediate-done)
-
-(map! :map (ivy-minibuffer-map
-            ivy-switch-buffer-map
-            minibuffer-local-map
-            read-expression-map)
-      "C-,"      'ivy-previous-line
-      "C-."      'ivy-next-line
-      "C-k"      'kill-line
-      "C-h"      'delete-backward-char)
-
-(map! :map (Info-mode-map)
-      :n "<escape>" 'my-force-normal-state
-      :n "m"          'Info-menu
-      :n "L"          'Info-history-forward
-      :n "<right>"          'evil-forward-sentence-begin
-      :n "<left>"          'evil-backward-sentence-begin
-      ;; :n "<return>"          'Info-follow-nearest-node
-      ;; :n "RET"          'Info-follow-nearest-node
-      :n "q"          'ignore
-      :n "C-n"          'Info-next
-      :n "C-p"          'Info-prev
-      :n "H"          'Info-history-back
-      :n "ci"         'clone-indirect-buffer-other-window
-      :n "<C-return>" 'eros-eval-last-sexp
-      :n "M-n"        'forward-paragraph)
-
-(map! :map override
-      :nv "f" 'avy-goto-char-2-below
-      :nv "F" 'avy-goto-char-2-above
-      :n "C-s"                            'counsel-grep-or-swiper
-      :i "C-u"                            'my-backward-kill-line
-      :n "gr"                             'my-sel-to-end
-      :n "ge"                             'evil-end-of-visual-line
-      :n "M-e"   'evil-forward-sentence-begin
-      :n "M-a"   'evil-backward-sentence-begin
-      :n "0"                              'evil-beginning-of-visual-line
-      :n "g0"                             'evil-digit-argument-or-evil-beginning-of-line
-      :n "!"                              'my-delete-frame
-      :n "Q"                              'my-delete-frame
-      :i "C-d"                            'delete-char
-      :i "C-h"                            'delete-backward-char
-      :i "C-n"                            'next-line
-      :i "C-p"                            'previous-line
-      :i "C-e"                            'move-end-of-line
-      :i "C-a"                            'move-beginning-of-line
-      :ni "<M-return>"                    'my-indent-buffer
-      :nvieg "<f8>"                       'man
-      :nvieg "C-S-j"                      'cool-moves/line-forward
-      :nvieg "C-S-k"                      'cool-moves/line-backward
-      :nvieg "M-y"                        'counsel-yank-pop
-      :nvieg "M-9"                        'delete-window
-      :nvieg "M-0"                        'quit-window
-      :nvieg "C-0"                        'doom/window-maximize-buffer
-      :nvieg "C-9"                        'doom/window-enlargen
-      :nvieg "M--"                        'winner-undo
-      :nvieg "M-="                        'winner-redo
-      :nvieg "M-k"                        'windmove-up
-      :nvieg "M-j"                        'windmove-down
-      :nvieg "M-h"                        'windmove-left
-      :nvieg "M-l"                        'windmove-right
-      :nvieg "<M-up>"                        'windmove-up
-      :nvieg "<M-down>"                        'windmove-down
-      :nvieg "<M-left>"                        'windmove-left
-      :nvieg "<M-right>"                        'windmove-right
-      ;; :desc "Capture Todo"        :n "Ç" nil
-      :desc "Capture"             :n "ç" 'org-capture
-      ;; :desc "Capture Goto Last"   :n "çl" 'org-capture-goto-last-stored
-      ;; :desc "Capture Goto Target" :n "çt" 'org-capture-goto-target
-      "C-c SPC"                           'caps-lock-mode
-      "C-c q"                             'quick-calc
-      "M-w"                               'eyebrowse-next-window-config
-      "M-q"                               'eyebrowse-prev-window-config
-      "C-c a"                             'align-regexp
-      "C-'"                               'org-cycle-agenda-files
-      :nvieg "M-," 'projectile-next-project-buffer
-      :nvieg "M-." 'projectile-previous-project-buffer
-      "<C-down>"                          'cool-moves/paragraph-forward
-      "<C-up>"                            'cool-moves/paragraph-backward
-      "C-S-j"                             'cool-moves/line-forward
-      "C-S-k"                             'cool-moves/line-backward
-      "C-S-n"                             'cool-moves/word-forward
-      "C-S-p"                             'cool-moves/word-backwards)
-
-(general-unbind '(scratch-mode-map my-org-mode-map)
-  :with 'my-force-normal-state
-  [remap my-save-buffer]
-  [remap save-buffer])
-
-(general-unbind 'normal lisp-interaction-mode-map
-  :with 'ignore
-  [remap my-save-buffer])
-
-(general-unbind +doom-dashboard-mode-map
-  :with 'forward-button
-  [remap evil-better-visual-line-next-line])
-
-(general-unbind +doom-dashboard-mode-map
-  :with 'backward-button
-  [remap evil-better-visual-line-previous-line])
-
-(general-unbind +doom-dashboard-mode-map
-  :with 'quit-window
-  [remap evil-record-macro]
-  [remap evil-force-normal-state])
-
-(general-unbind +doom-dashboard-mode-map
-  :with 'push-button
-  [remap evil-forward-char])
-
-(general-unbind 'lispyville-mode-map
-  :with 'lispy-repeat
-  [remap evil-repeat])
-
-(general-unbind 'lispyville-mode-map
-  :with 'org-edit-src-exit
-  [remap lispy-splice])
-
-(general-unbind 'org-capture-mode-map
-  :with 'org-capture-finalize
-  [remap my-indent-buffer])
-
-(general-unbind 'org-src-mode-map
-  :with 'org-edit-src-exit
-  [remap lispy-mark-symbol])
-
-;; (define-key key-translation-map (kbd "s-(") (kbd "{"))
-(define-key key-translation-map (kbd "<pause>") (kbd "C-c"))
-(define-key key-translation-map (kbd "<menu>") (kbd "C-x"))
-
-(map! :n "'"         'evil-goto-mark
-      :n "`"         'evil-goto-mark-line
-      :n "g."        'evil-repeat
-      :n ","         'ivy-switch-buffer
-      :n "."         'counsel-find-file
-      :n "g4"         'evil-backward-word-end
-      :i "M-/"       'hippie-expand
-      :n "go"         'cool-moves/open-line-below
-      :n "gO"         'cool-moves/open-line-above
-      "M-s"                               'evil-switch-to-windows-last-buffer
-      :i "C-k"                            'kill-line
-      :nvieg "C-."   'my-search-settings
-      :nvieg "C-,"   'helpful-at-point
-      :nvieg "C-c i" 'insert-char
-      "C-c r"        '+popup/raise
-      "C-h m"        'my-show-major-mode
-      "M-p"          'backward-paragraph
-      "M-n"          'forward-paragraph)
