@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: org-code
+# key: c
+# --
+~$1~$0

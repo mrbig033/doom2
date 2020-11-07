@@ -1,1 +1,1 @@
-(put 'narrow-to-region 'disabled nil)
+(put 'scroll-left 'disabled nil)

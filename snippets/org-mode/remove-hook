@@ -1,0 +1,7 @@
+# -*- mode: snippet; -*-
+# contributor: Xah Lee (XahLee.org)
+# name: remove-hook
+# key: remove-hook
+# key: rh
+# --
+(remove-hook '${1:name}-hook ${2:'${3:function}})$0

@@ -3,15 +3,15 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("eintr"
- (front-context-string . "1.10 Summary\n===")
- (rear-context-string . "ist Processing\n\n")
- (position . 86267)
+ (front-context-string . "being used for p")
+ (rear-context-string . "em.\n\n   Besides ")
+ (position . 90809)
  (filename . "/usr/share/info/eintr")
- (info-node . "Summary")
+ (info-node . "How to Evaluate")
  (handler . Info-bookmark-jump))
 ("org-capture-last-stored"
  (filename . "~/Dropbox/org/agenda.org")
- (front-context-string . "** TODO make inf")
+ (front-context-string . "** TODO remove d")
  (rear-context-string . "erview\n\n* Todos\n")
  (position . 30))
 )
