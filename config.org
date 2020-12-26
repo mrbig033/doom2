@@ -192,6 +192,14 @@
 #+end_src
 ** misc
 #+begin_src emacs-lisp
+(defun my-show-racket-commands ()
+  (interactive)
+  (counsel-M-x "^racket-"))
+
+(defun my-show-racket-repl-commands ()
+  (interactive)
+  (counsel-M-x "^racket-repl"))
+
 (defun my-evil-substitute ()
   (interactive)
   (evil-ex "%s/"))
@@ -624,7 +632,9 @@
 
 (map! :map (lispyville-mode-map)
       :i "M-i" 'tab-to-tab-stop
-      :n "C-k" nil)
+      :n "C-k" nil
+      :i "M-[" 'lispy-brackets
+      )
 
 ;; (advice-add #'lispy-kill :after #'evil-insert)
 
@@ -638,7 +648,7 @@
       :n "<backspace>" 'my-org-edit-src-exit-no-eval
       :n "<tab>" 'outline-toggle-children
       :ni "C-c h" 'outline-hide-body
-      :ni "C-c s" 'outline-show-all
+      ;; :ni "C-c s" 'outline-show-all
       :ni "C-c o" 'outline-hide-other)
 
 (map! :map (prog-mode-map text-mode-map conf-mode-map)
@@ -653,7 +663,7 @@
       ;; :nvieg "M-," 'evil-previous-open-paren
       :n "<backspace>" 'my-org-edit-src-exit-no-eval
       ;; :nvieg "M-." 'evil-next-close-paren
-      :nvieg "M-;" 'lispy-eval-expression
+      ;; :nvieg "M-;" 'lispy-eval-expression
       :localleader "0" 'evil-next-close-paren
       :localleader "9" 'evil-previous-open-paren)
 
@@ -693,6 +703,7 @@
       "C-c q"                              'quick-calc
       "M-q"                                'eyebrowse-prev-window-config
       "M-w"                                'eyebrowse-next-window-config
+      "C-c ;"           '+vterm/toggle
       ;; "M-,"                             '+ivy/switch-workspace-buffer
       :i "C-k"                             'kill-line
       :i "C-a"                             'move-beginning-of-line
@@ -722,7 +733,7 @@
       :ni "<M-return>"                       'my-indent-buffer
       :nv "F"                                'avy-goto-char-2-above
       :nv "f"                                'avy-goto-char-2-below
-      :nvieg "M-;"                           'lispy-eval-expression
+      ;; :nvieg "M-;"                           'lispy-eval-expression
       :nvieg "<M-down>"                      'windmove-down
       :nvieg "<M-left>"                      'windmove-left
       :nvieg "<M-right>"                     'windmove-right
@@ -838,8 +849,6 @@
 ** misc
 #+begin_src emacs-lisp
 (map! "<f8>"          'deft
-      "C-;"           '+vterm/toggle
-      "C-c ;"         'iedit-mode
       "C-h m"         'my-show-major-mode
       "M-n"           'forward-paragraph
       "M-p"           'backward-paragraph
@@ -865,6 +874,35 @@
       :nvieg "C-c i"  'insert-char)
 #+end_src
 * use-package
+** racket
+#+begin_src emacs-lisp
+(use-package! racket
+  :init
+  (add-hook 'racket-repl-mode-hook 'lispyville-mode)
+
+  (map! :map (racket-mode-map)
+        "C-;" 'my-racket-switch-to-repl
+        "C-c s" 'my-show-racket-commands
+        :ni "<C-return>" 'racket-run-and-switch-to-repl)
+
+  (map! :map (racket-repl-mode-map)
+        "C-;" 'racket-repl-switch-to-edit
+        "C-c s" 'my-show-racket-repl-commands
+        "C-l" 'comint-clear-buffer)
+
+  :config
+
+  (set-company-backend! 'racket-repl-mode
+    'company-capf 'company-yasnippet)
+
+  (set-popup-rule! "*Racket REPL**" :side 'bottom :modeline nil :height 19 :quit 't)
+
+  (defun my-racket-switch-to-repl ()
+    (interactive)
+    (display-buffer racket-repl-buffer-name)
+    (select-window (get-buffer-window racket-repl-buffer-name t))
+    (evil-insert-state)))
+#+end_src
 ** recentf
 #+begin_src emacs-lisp
 (use-package! recentf
@@ -945,6 +983,7 @@
   :config
   (delight '((org-mode "[o]" "Org")
              (emacs-lisp-mode "[el]" "Elisp")
+             (racket-mode "[rkt]" "Racket")
              (fundamental-mode "[fund]" "Fundamental")
              (markdown-mode "[md]" "Markdown"))))
 #+end_src
@@ -1128,11 +1167,12 @@
 #+begin_src emacs-lisp
 (use-package! company
   :after-call after-find-file
+
   :custom
+  (company-minimum-prefix-length 3)
+  (company-idle-delay 0.3)
+  (company-tooltip-limit 10)
   (company-show-numbers t)
-  (company-idle-delay 0.2)
-  (company-tooltip-limit 5)
-  (company-minimum-prefix-length 2)
   (company-dabbrev-other-buffers t)
   (company-selection-wrap-around t)
   (company-auto-commit nil)
@@ -1467,7 +1507,7 @@
         :n "zi"                                   'org-show-all
         :n "H" 'org-shiftleft
         :n "L" 'org-shiftright
-        :nvieg "M-;"                              'lispy-eval-expression
+        :nvieg "M-;"                              nil
         :nvieg "M-m"                              'my-org-edit-special
         :desc "Goto Clock"                         :localleader "cs" 'org-clock-display
         :desc "Web Insert Link"              :localleader "wi" 'org-web-tools-insert-link-for-url
@@ -1567,6 +1607,7 @@
 (use-package! evil
   :init
   (add-hook 'better-jumper-post-jump-hook 'my-recenter-window)
+  (add-hook 'evil-insert-state-exit-hook 'expand-abbrev)
   :custom
   (evil-jumps-cross-buffers nil)
   (evil-respect-visual-line-mode t)
@@ -1691,7 +1732,7 @@
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
        ;;rotate-text       ; cycle region at point between text candidates
-       snippets            ; my elves. They type so I don't have to
+       ;; snippets            ; my elves. They type so I don't have to
        word-wrap           ; soft wrapping with language-aware indent
 
        :emacs
@@ -1816,10 +1857,11 @@
 * packages.el
 #+begin_src emacs-lisp :tangle packages.el
 (package! cycle-buffer
-          :recipe (:local-repo "/home/jones/.doom.d/lisp/cycle-buffer"))
+  :recipe (:local-repo "/home/jones/.doom.d/lisp/cycle-buffer"))
 (package! targets
-          :recipe (:local-repo "/home/jones/.doom.d/lisp/targets"))
+  :recipe (:local-repo "/home/jones/.doom.d/lisp/targets"))
 (package! typo)
+(package! delight)
 (package! olivetti)
 (package! eyebrowse)
 (package! caps-lock)
@@ -1832,9 +1874,9 @@
 (package! google-translate)
 (package! electric-operator)
 (package! git-auto-commit-mode)
-(package! delight)
 (package! evil-better-visual-line)
 (package! aggressive-fill-paragraph)
+(package! company-prescient)
 
 (package! clipmon :disable t)
 (package! elmacro :disable t)

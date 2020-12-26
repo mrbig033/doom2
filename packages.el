@@ -1,8 +1,9 @@
 (package! cycle-buffer
-          :recipe (:local-repo "/home/jones/.doom.d/lisp/cycle-buffer"))
+  :recipe (:local-repo "/home/jones/.doom.d/lisp/cycle-buffer"))
 (package! targets
-          :recipe (:local-repo "/home/jones/.doom.d/lisp/targets"))
+  :recipe (:local-repo "/home/jones/.doom.d/lisp/targets"))
 (package! typo)
+(package! delight)
 (package! olivetti)
 (package! eyebrowse)
 (package! caps-lock)
@@ -15,9 +16,9 @@
 (package! google-translate)
 (package! electric-operator)
 (package! git-auto-commit-mode)
-(package! delight)
 (package! evil-better-visual-line)
 (package! aggressive-fill-paragraph)
+(package! company-prescient)
 
 (package! clipmon :disable t)
 (package! elmacro :disable t)

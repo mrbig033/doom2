@@ -180,6 +180,14 @@
   (interactive)
   (counsel-ag nil "~/.doom.d/" "-f -G 'config.org'"))
 
+(defun my-show-racket-commands ()
+  (interactive)
+  (counsel-M-x "^racket-"))
+
+(defun my-show-racket-repl-commands ()
+  (interactive)
+  (counsel-M-x "^racket-repl"))
+
 (defun my-evil-substitute ()
   (interactive)
   (evil-ex "%s/"))
@@ -605,7 +613,9 @@
 
 (map! :map (lispyville-mode-map)
       :i "M-i" 'tab-to-tab-stop
-      :n "C-k" nil)
+      :n "C-k" nil
+      :i "M-[" 'lispy-brackets
+      )
 
 ;; (advice-add #'lispy-kill :after #'evil-insert)
 
@@ -619,7 +629,7 @@
       :n "<backspace>" 'my-org-edit-src-exit-no-eval
       :n "<tab>" 'outline-toggle-children
       :ni "C-c h" 'outline-hide-body
-      :ni "C-c s" 'outline-show-all
+      ;; :ni "C-c s" 'outline-show-all
       :ni "C-c o" 'outline-hide-other)
 
 (map! :map (prog-mode-map text-mode-map conf-mode-map)
@@ -634,7 +644,7 @@
       ;; :nvieg "M-," 'evil-previous-open-paren
       :n "<backspace>" 'my-org-edit-src-exit-no-eval
       ;; :nvieg "M-." 'evil-next-close-paren
-      :nvieg "M-;" 'lispy-eval-expression
+      ;; :nvieg "M-;" 'lispy-eval-expression
       :localleader "0" 'evil-next-close-paren
       :localleader "9" 'evil-previous-open-paren)
 
@@ -672,6 +682,7 @@
       "C-c q"                              'quick-calc
       "M-q"                                'eyebrowse-prev-window-config
       "M-w"                                'eyebrowse-next-window-config
+      "C-c ;"           '+vterm/toggle
       ;; "M-,"                             '+ivy/switch-workspace-buffer
       :i "C-k"                             'kill-line
       :i "C-a"                             'move-beginning-of-line
@@ -701,7 +712,7 @@
       :ni "<M-return>"                       'my-indent-buffer
       :nv "F"                                'avy-goto-char-2-above
       :nv "f"                                'avy-goto-char-2-below
-      :nvieg "M-;"                           'lispy-eval-expression
+      ;; :nvieg "M-;"                           'lispy-eval-expression
       :nvieg "<M-down>"                      'windmove-down
       :nvieg "<M-left>"                      'windmove-left
       :nvieg "<M-right>"                     'windmove-right
@@ -811,8 +822,6 @@
   [remap evil-better-visual-line-previous-line])
 
 (map! "<f8>"          'deft
-      "C-;"           '+vterm/toggle
-      "C-c ;"         'iedit-mode
       "C-h m"         'my-show-major-mode
       "M-n"           'forward-paragraph
       "M-p"           'backward-paragraph
@@ -836,6 +845,34 @@
       :nvieg "C-,"    'helpful-at-point
       :nvieg "C-."    'my-search-settings
       :nvieg "C-c i"  'insert-char)
+
+(use-package! racket
+  :init
+  (add-hook 'racket-repl-mode-hook 'lispyville-mode)
+
+  (map! :map (racket-mode-map)
+        "C-;" 'my-racket-switch-to-repl
+        "C-c s" 'my-show-racket-commands
+        :ni "<C-return>" 'racket-run-and-switch-to-repl)
+
+  (map! :map (racket-repl-mode-map)
+        "C-;" 'racket-repl-switch-to-edit
+        "C-c s" 'my-show-racket-repl-commands
+        "C-l" 'comint-clear-buffer)
+
+  :config
+
+
+  ;; (set-company-backend! 'racket-repl-mode
+  ;;   'company-ispell 'company-dabbrev 'company-capf)
+
+  (set-popup-rule! "*Racket REPL**" :side 'bottom :modeline nil :height 19 :quit 't)
+
+  (defun my-racket-switch-to-repl ()
+    (interactive)
+    (display-buffer racket-repl-buffer-name)
+    (select-window (get-buffer-window racket-repl-buffer-name t))
+    (evil-insert-state)))
 
 (use-package! recentf
   :ensure nil
@@ -909,6 +946,7 @@
   :config
   (delight '((org-mode "[o]" "Org")
              (emacs-lisp-mode "[el]" "Elisp")
+             (racket-mode "[rkt]" "Racket")
              (fundamental-mode "[fund]" "Fundamental")
              (markdown-mode "[md]" "Markdown"))))
 
@@ -1052,11 +1090,12 @@
 
 (use-package! company
   :after-call after-find-file
+
   :custom
+  (company-minimum-prefix-length 3)
+  (company-idle-delay 0.3)
+  (company-tooltip-limit 10)
   (company-show-numbers t)
-  (company-idle-delay 0.2)
-  (company-tooltip-limit 5)
-  (company-minimum-prefix-length 2)
   (company-dabbrev-other-buffers t)
   (company-selection-wrap-around t)
   (company-auto-commit nil)
@@ -1366,7 +1405,7 @@
         :n "zi"                                   'org-show-all
         :n "H" 'org-shiftleft
         :n "L" 'org-shiftright
-        :nvieg "M-;"                              'lispy-eval-expression
+        :nvieg "M-;"                              nil
         :nvieg "M-m"                              'my-org-edit-special
         :desc "Goto Clock"                         :localleader "cs" 'org-clock-display
         :desc "Web Insert Link"              :localleader "wi" 'org-web-tools-insert-link-for-url
@@ -1460,6 +1499,7 @@
 (use-package! evil
   :init
   (add-hook 'better-jumper-post-jump-hook 'my-recenter-window)
+  (add-hook 'evil-insert-state-exit-hook 'expand-abbrev)
   :custom
   (evil-jumps-cross-buffers nil)
   (evil-respect-visual-line-mode t)
