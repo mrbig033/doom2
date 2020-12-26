@@ -1,4 +1,5 @@
 #+TITLE: Org Temporary Notes
 
-* asdad
-- [X] asdasd
+* Saturday, 26, 2020
+** 05:21
+I did the chapter 2 of realm of racket - the guessing game. i skipped a lot of things i already of, and was able to take my time, and my anxiety was greatly reduced. i decided to use emacs instead of dr racket - the muscle memory is hard to give up. but i'm using chmod to make emacs tinkering unavailable while studying, and delayed admin prevent me from undoing chmod every time i want to make a change. that helped me alot! it took little more than the alloted 30 minutes.

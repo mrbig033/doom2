@@ -11,7 +11,7 @@
  (handler . Info-bookmark-jump))
 ("org-capture-last-stored"
  (filename . "~/Dropbox/org/agenda.org")
- (front-context-string . "** TODO  \n** TOD")
- (rear-context-string . "erview\n\n* Todos\n")
- (position . 30))
+ (front-context-string . "** TODO evil-mc\n")
+ (rear-context-string . "s for yasnippet\n")
+ (position . 1042))
 )

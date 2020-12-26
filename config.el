@@ -180,6 +180,11 @@
   (interactive)
   (counsel-ag nil "~/.doom.d/" "-f -G 'config.org'"))
 
+(defun my-save-quit-window ()
+  (interactive)
+  (my-just-save-buffer-quiet)
+  (quit-window))
+
 (defun my-show-racket-commands ()
   (interactive)
   (counsel-M-x "^racket-"))
@@ -562,6 +567,9 @@
       ("x"          'diredp-delete-this-file)
       ("<C-return>" 'dired-do-find-marked-files))
 
+(map! :map (org-journal-mode-map)
+      :n "<escape>" 'my-save-quit-window)
+
 (map! :map (snippet-mode-map)
       :n "<escape>" 'ignore)
 
@@ -619,7 +627,6 @@
 
 ;; (advice-add #'lispy-kill :after #'evil-insert)
 
-
 (map! :map (my-emacs-lisp-mode-map)
       :n "<escape>" 'my-save-buffer
       :n "q"        'quit-window)
@@ -647,7 +654,6 @@
       ;; :nvieg "M-;" 'lispy-eval-expression
       :localleader "0" 'evil-next-close-paren
       :localleader "9" 'evil-previous-open-paren)
-
 
 (map! :map (flycheck-mode-map)
       :nvieg "C-c f"    'flycheck-first-error)
@@ -846,6 +852,16 @@
       :nvieg "C-."    'my-search-settings
       :nvieg "C-c i"  'insert-char)
 
+(use-package! org-journal
+  :init
+  (add-hook 'org-journal-after-entry-create-hook 'evil-insert-state)
+  :custom
+  (org-journal-date-format "%A, %d, %Y")
+  (org-journal-file-format "%Y-%m-%d-jrnl")
+  (org-journal-time-format "%R\n")
+  :config
+  (set-popup-rule! "jrnl" :side 'bottom :modeline nil :height 19 :quit 't))
+
 (use-package! racket
   :init
   (add-hook 'racket-repl-mode-hook 'lispyville-mode)
@@ -862,9 +878,8 @@
 
   :config
 
-
-  ;; (set-company-backend! 'racket-repl-mode
-  ;;   'company-ispell 'company-dabbrev 'company-capf)
+  (set-company-backend! 'racket-repl-mode
+    'company-capf 'company-yasnippet)
 
   (set-popup-rule! "*Racket REPL**" :side 'bottom :modeline nil :height 19 :quit 't)
 
@@ -947,20 +962,22 @@
   (delight '((org-mode "[o]" "Org")
              (emacs-lisp-mode "[el]" "Elisp")
              (racket-mode "[rkt]" "Racket")
+             (org-journal-mode "[j]" "Journal")
+
              (fundamental-mode "[fund]" "Fundamental")
              (markdown-mode "[md]" "Markdown"))))
 
-(use-package! targets
-  :init
-  (setq targets-user-text-objects '((pipe "|" nil separator)
-                                    (paren "(" ")" pair :more-keys "b")
-                                    (bracket "[" "]" pair :more-keys "r")
-                                    (curly "{" "}" pair :more-keys "c")))
-  :config
-  (targets-setup t
-                 :inside-key nil
-                 :around-key nil
-                 :remote-key nil))
+;; (use-package! targets
+;;   :init
+;;   (setq targets-user-text-objects '((pipe "|" nil separator)
+;;                                     (paren "(" ")" pair :more-keys "b")
+;;                                     (bracket "[" "]" pair :more-keys "r")
+;;                                     (curly "{" "}" pair :more-keys "c")))
+;;   :config
+;;   (targets-setup t
+;;                  :inside-key nil
+;;                  :around-key nil
+;;                  :remote-key nil))
 
 (use-package! vterm
   :init
@@ -990,7 +1007,6 @@
     ("P" my-engine-wiki-pt)
     ("E" engine/search-wiki-en)
 
-
     ("f" engine/search-the-free-dictionary :hint nil)
     ("i" engine/search-dic-informal :hint nil)
     ("m" engine/search-michaelis :hint nil)
@@ -999,7 +1015,6 @@
     ("g" engine/search-google :hint nil)
     ("p" engine/search-wiki-pt :hint nil)
     ("e" engine/search-wiki-en :hint nil))
-
 
   (defhydra hydra-roam (:hint nil :color blue :exit nil :foreign-keys nil)
     "
@@ -1090,7 +1105,8 @@
 
 (use-package! company
   :after-call after-find-file
-
+  :init
+  (add-hook 'company-mode 'company-prescient-mode)
   :custom
   (company-minimum-prefix-length 3)
   (company-idle-delay 0.3)

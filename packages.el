@@ -1,7 +1,7 @@
-(package! cycle-buffer
-  :recipe (:local-repo "/home/jones/.doom.d/lisp/cycle-buffer"))
-(package! targets
-  :recipe (:local-repo "/home/jones/.doom.d/lisp/targets"))
+;; (package! cycle-buffer
+;;   :recipe (:local-repo "/home/jones/.doom.d/lisp/cycle-buffer"))
+;; (package! targets
+;;   :recipe (:local-repo "/home/jones/.doom.d/lisp/targets"))
 (package! typo)
 (package! delight)
 (package! olivetti)
@@ -10,16 +10,17 @@
 (package! super-save)
 (package! engine-mode)
 (package! hl-sentence)
-(package! lorem-ipsum)
-(package! org-web-tools)
 (package! better-jumper)
 (package! google-translate)
 (package! electric-operator)
 (package! git-auto-commit-mode)
 (package! evil-better-visual-line)
 (package! aggressive-fill-paragraph)
+(package! yasnippet-snippets)
 (package! company-prescient)
 
+(package! lorem-ipsum :disable t)
+(package! org-web-tools :disable t)
 (package! clipmon :disable t)
 (package! elmacro :disable t)
 (package! pabbrev :disable t)
@@ -31,4 +32,3 @@
 (package! badwolf-theme :disable t)
 (package! fountain-mode :disable t)
 (package! url-shortener :disable t)
-(package! yasnippet-snippets :disable t)

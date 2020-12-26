@@ -192,6 +192,11 @@
 #+end_src
 ** misc
 #+begin_src emacs-lisp
+(defun my-save-quit-window ()
+  (interactive)
+  (my-just-save-buffer-quiet)
+  (quit-window))
+
 (defun my-show-racket-commands ()
   (interactive)
   (counsel-M-x "^racket-"))
@@ -581,6 +586,9 @@
       ("x"          'diredp-delete-this-file)
       ("<C-return>" 'dired-do-find-marked-files))
 
+(map! :map (org-journal-mode-map)
+      :n "<escape>" 'my-save-quit-window)
+
 (map! :map (snippet-mode-map)
       :n "<escape>" 'ignore)
 
@@ -638,7 +646,6 @@
 
 ;; (advice-add #'lispy-kill :after #'evil-insert)
 
-
 (map! :map (my-emacs-lisp-mode-map)
       :n "<escape>" 'my-save-buffer
       :n "q"        'quit-window)
@@ -666,7 +673,6 @@
       ;; :nvieg "M-;" 'lispy-eval-expression
       :localleader "0" 'evil-next-close-paren
       :localleader "9" 'evil-previous-open-paren)
-
 
 (map! :map (flycheck-mode-map)
       :nvieg "C-c f"    'flycheck-first-error)
@@ -874,6 +880,18 @@
       :nvieg "C-c i"  'insert-char)
 #+end_src
 * use-package
+** org-journal
+#+begin_src emacs-lisp
+(use-package! org-journal
+  :init
+  (add-hook 'org-journal-after-entry-create-hook 'evil-insert-state)
+  :custom
+  (org-journal-date-format "%A, %d, %Y")
+  (org-journal-file-format "%Y-%m-%d-jrnl")
+  (org-journal-time-format "%R\n")
+  :config
+  (set-popup-rule! "jrnl" :side 'bottom :modeline nil :height 19 :quit 't))
+#+end_src
 ** racket
 #+begin_src emacs-lisp
 (use-package! racket
@@ -984,22 +1002,24 @@
   (delight '((org-mode "[o]" "Org")
              (emacs-lisp-mode "[el]" "Elisp")
              (racket-mode "[rkt]" "Racket")
+             (org-journal-mode "[j]" "Journal")
+
              (fundamental-mode "[fund]" "Fundamental")
              (markdown-mode "[md]" "Markdown"))))
 #+end_src
 ** targets
 #+begin_src emacs-lisp
-(use-package! targets
-  :init
-  (setq targets-user-text-objects '((pipe "|" nil separator)
-                                    (paren "(" ")" pair :more-keys "b")
-                                    (bracket "[" "]" pair :more-keys "r")
-                                    (curly "{" "}" pair :more-keys "c")))
-  :config
-  (targets-setup t
-                 :inside-key nil
-                 :around-key nil
-                 :remote-key nil))
+;; (use-package! targets
+;;   :init
+;;   (setq targets-user-text-objects '((pipe "|" nil separator)
+;;                                     (paren "(" ")" pair :more-keys "b")
+;;                                     (bracket "[" "]" pair :more-keys "r")
+;;                                     (curly "{" "}" pair :more-keys "c")))
+;;   :config
+;;   (targets-setup t
+;;                  :inside-key nil
+;;                  :around-key nil
+;;                  :remote-key nil))
 #+end_src
 ** vterm
 #+begin_src emacs-lisp
@@ -1050,7 +1070,6 @@
     ("P" my-engine-wiki-pt)
     ("E" engine/search-wiki-en)
 
-
     ("f" engine/search-the-free-dictionary :hint nil)
     ("i" engine/search-dic-informal :hint nil)
     ("m" engine/search-michaelis :hint nil)
@@ -1059,7 +1078,6 @@
     ("g" engine/search-google :hint nil)
     ("p" engine/search-wiki-pt :hint nil)
     ("e" engine/search-wiki-en :hint nil))
-
 
   (defhydra hydra-roam (:hint nil :color blue :exit nil :foreign-keys nil)
     "
@@ -1167,7 +1185,8 @@
 #+begin_src emacs-lisp
 (use-package! company
   :after-call after-find-file
-
+  :init
+  (add-hook 'company-mode 'company-prescient-mode)
   :custom
   (company-minimum-prefix-length 3)
   (company-idle-delay 0.3)
@@ -1694,10 +1713,9 @@
        company             ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +prescient      ; a search engine for love and life
-            +childframe)
+       (ivy +prescient)    ; a search engine for love and life
        :ui
-       ;; deft              ; notational velocity for Emacs
+       ;; deft             ; notational velocity for Emacs
        doom                ; what makes DOOM look the way it does
        ;; doom-dashboard   ; a nifty splash screen for Emacs
        ;; doom-quit        ; DOOM quit-message prompts when you quit Emacs
@@ -1817,7 +1835,8 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +pomodoro)     ; organize your plain life in plain text
+       (org +pomodoro      ; organize your plain life in plain text
+            +journal)
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -1856,10 +1875,10 @@
 #+end_src
 * packages.el
 #+begin_src emacs-lisp :tangle packages.el
-(package! cycle-buffer
-  :recipe (:local-repo "/home/jones/.doom.d/lisp/cycle-buffer"))
-(package! targets
-  :recipe (:local-repo "/home/jones/.doom.d/lisp/targets"))
+;; (package! cycle-buffer
+;;   :recipe (:local-repo "/home/jones/.doom.d/lisp/cycle-buffer"))
+;; (package! targets
+;;   :recipe (:local-repo "/home/jones/.doom.d/lisp/targets"))
 (package! typo)
 (package! delight)
 (package! olivetti)
@@ -1868,16 +1887,17 @@
 (package! super-save)
 (package! engine-mode)
 (package! hl-sentence)
-(package! lorem-ipsum)
-(package! org-web-tools)
 (package! better-jumper)
 (package! google-translate)
 (package! electric-operator)
 (package! git-auto-commit-mode)
 (package! evil-better-visual-line)
 (package! aggressive-fill-paragraph)
+(package! yasnippet-snippets)
 (package! company-prescient)
 
+(package! lorem-ipsum :disable t)
+(package! org-web-tools :disable t)
 (package! clipmon :disable t)
 (package! elmacro :disable t)
 (package! pabbrev :disable t)
@@ -1889,5 +1909,4 @@
 (package! badwolf-theme :disable t)
 (package! fountain-mode :disable t)
 (package! url-shortener :disable t)
-(package! yasnippet-snippets :disable t)
 #+end_src
