@@ -4,6 +4,7 @@
 # key: d
 # condition: t
 # --
-(defun my-$1 ()
+(defun my-$1 ($2)
+  "$3"
   (interactive)
   ($0))
