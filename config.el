@@ -36,7 +36,7 @@
 (put 'narrow-to-region 'disabled nil)
 (put 'scroll-left 'disabled nil)
 
-(load-file "~/.doom.d/lisp/cool-moves/cool-moves.el")
+;; (load-file "~/.doom.d/lisp/cool-moves/cool-moves.el")
 (global-hl-line-mode -1)
 
 (global-evil-visualstar-mode t)
