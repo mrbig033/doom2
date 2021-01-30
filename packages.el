@@ -11,11 +11,13 @@
 (package! engine-mode)
 (package! hl-sentence)
 (package! better-jumper)
+(package! centered-cursor-mode)
 (package! google-translate)
 (package! electric-operator)
 (package! git-auto-commit-mode)
 (package! evil-better-visual-line)
 (package! aggressive-fill-paragraph)
+(package! general)
 (package! yasnippet-snippets)
 (package! company-prescient)
 

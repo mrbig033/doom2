@@ -36,7 +36,7 @@
 (put 'narrow-to-region 'disabled nil)
 (put 'scroll-left 'disabled nil)
 
-;; (load-file "~/.doom.d/lisp/cool-moves/cool-moves.el")
+(load-file "~/.doom.d/lisp/cool-moves/cool-moves.el")
 (global-hl-line-mode -1)
 
 (global-evil-visualstar-mode t)
@@ -53,48 +53,10 @@
 (setq-default global-eldoc-mode nil)
 (set-popup-rule! "tmp.el" :side 'bottom :modeline t :height 19 :quit 't)
 
-;;;; REMOVE HOOKS ;;;;;
-(remove-hook! '(org-mode-hook
-                text-mode-hook
-                ;; prog-mode-hook
-                ) hl-line-mode)
-(remove-hook 'find-file-hooks 'global-eldoc-mode-check-buffers)
-(remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
+(remove-hook 'server-after-make-frame-hook 'toggle-frame-maximized)
 
-(remove-hook! 'evil-visual-state-exit-hook 'doom-enable-hl-line-maybe-h)
-
-;;;; ADD HOOKS ;;;;;
-(add-hook 'picture-mode-hook 'evil-emacs-state)
-(add-hook 'pdf-outline-buffer-mode-hook (lambda ()
-                                          (let ((inhibit-message t))
-                                            (toggle-truncate-lines nil))))
-
-(add-hook 'git-timemachine-mode-hook (lambda () (olivetti-mode 1)))
-
-(add-hook! 'markdown-mode-hook
-           #'electric-pair-mode)
-
-(add-hook! '(text-mode-hook
-             org-mode-hook
-             markdown-mode-hook)
-           #'electric-operator-mode
-           #'abbrev-mode)
-
-;; (add-hook! '(prog-mode-hook
-;;              org-mode-hook) #'yas-minor-mode-on)
-
-(add-hook 'prog-mode-hook #'hl-line-mode)
-
-(add-hook! '(prog-mode-hook
-             text-mode-hook
-             org-mode-hook
-             helpful-mode-hook
-             conf-mode-hook) #'olivetti-mode)
-
-;;;; MAKE SCRIPTS EXECUTABLE ;;;;;
-;; source: https://bit.ly/31ZDduV
-(add-hook 'after-save-hook
-          'executable-make-buffer-file-executable-if-script-p)
+;; (doom-modeline-refresh-font-width-cache
+;;  toggle-frame-fullscreen)
 
 (defun my-deer-find-tmp ()
   (interactive)
@@ -478,7 +440,8 @@
       ;; :desc "My Org Pomodoro"    :leader "tp"    'my-org-start-pomodoro
       :desc "Org Pomodoro"          :leader "tt"    'org-pomodoro
       :desc "Truncate Lines"        :leader "tu"    'toggle-truncate-lines
-      :desc "Column Number Mode"    :leader "tc"    'column-number-mode
+      :desc "Column Number Mode"    :leader "tC"    'column-number-mode
+      :desc "Centered Cursor Mode"    :leader "tc"    'centered-cursor-mode
       :desc "Ispell English"        :leader "te"    'company-ispell-english
       :desc "Ispell Portugues"      :leader "tp"    'company-ispell-brasileiro
 
@@ -1515,9 +1478,11 @@
 (use-package! evil
   :init
   (add-hook 'better-jumper-post-jump-hook 'my-recenter-window)
-  (add-hook 'evil-insert-state-exit-hook 'expand-abbrev)
+  (add-hook 'evil-normal-state-entry-hook 'my-just-save-buffer-quiet)
+
   :custom
   (evil-jumps-cross-buffers nil)
+  (evil-escape-unordered-key-sequence '("jk"))
   (evil-respect-visual-line-mode t)
   :config
   (evil-better-visual-line-on))
