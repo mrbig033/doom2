@@ -1,7 +1,25 @@
-#+TITLE: Org Temporary Notes
+#+OPTIONS: author:nil date:nil
+#+OPTIONS: num:nil, toc:nil
 
-- Supino reto 3 x 12-15
-- Apoio inclinado com joelhos no solo 3 x 10
-- Rosca direta com barra 3 x 12
-- remada uni 3 x 12 puxada
-- Puxada de borracha para triceps 3 x 12 a 15 repetiçoes
+* Passwords
+| Item       | login                    | Password                                |
+|------------+--------------------------+-----------------------------------------|
+| Keypass    | —                        | (nenhumdessesmotivoserapretextodeoutro) |
+|------------+--------------------------+-----------------------------------------|
+| Lastpass   | davilopes.cine@gmai.com  | (ospaistrocaramalgumaspalavrasacerbas)  |
+|------------+--------------------------+-----------------------------------------|
+| Google     | davilopes.cine@gmail.com | epoladec999                             |
+|------------+--------------------------+-----------------------------------------|
+| Protonmail | mrbig033@protonmail.com  | olaeonvongeousemptisme                  |
+|------------+--------------------------+-----------------------------------------|
+| Github     | mrbig033@protonmail.com  | 1amacarronada                           |
+|------------+--------------------------+-----------------------------------------|
+| Epic       | alienbogart              | gatomolhado2000                         |
+|------------+--------------------------+-----------------------------------------|
+| PC Normal  | —                        | Read2020                                |
+|------------+--------------------------+-----------------------------------------|
+| Davi Xbox  | davilopes.cine@gmail.com | chocolate10                             |
+|------------+--------------------------+-----------------------------------------|
+| Davi EA    | —                        | Tapioca10                               |
+|------------+--------------------------+-----------------------------------------|
+| Lucas Xbox | lucasbigbr@outlook.com   | Read2020                                |

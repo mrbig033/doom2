@@ -1,36 +1,15 @@
-**What did you expect to happen?**
-...
+Caros amigos e amigas, atentendo ao pedido de Célia estarei auxiliando na organização de nossas reuniões de quarta-feira, às 20 horas. Estarei criando as reuniões com antecedência e recebendo a todos, e nosso amigo Hermes irá substituir Célia na função que vinha tendo.]
 
+O livro escolhido para os estudos é o *Palavras de Vida Eterna*, de autoria de Emanual e psicografia de Chico Xavier. Se trata de um livro com mensagens curtas, diretas, e edificantes. 
 
-**What actually happened?**
-...
+Para os que lêem em formato digital, segue o link para visualização e download, em formato PDF: http://www.oconsolador.com.br/linkfixo/bibliotecavirtual/chicoxavier/palavrasdevidaeterna.pdf
 
+Espero contar com a participação de todos.
 
-**Additional details:**
-- Include a link to your private config
-- Include screenshots/casts of your issue
-- If you mention key sequences, include what commands they're bound to (use `SPC
-  h k KEY` or `C-h h k KEY` to inspect keys).
-- Include any warnings or errors logged to \*Messages\* (use `M-x
-  view-echo-area-messages` to see it).
+Até a próxima quarta-feira!
 
-<details><pre>
-If an error message is involved include a backtrace of it.
+Atenciosamente,
 
-How to acquire a backtrace:
-https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#how-to-extract-a-backtrace-from-an-error
-</pre></details>
+Davi
 
-
-**Steps to reproduce:**
-1. Select these example steps,
-2. Delete them,
-3. And replace them with precise steps to reproduce your issue.
-4. Fill in "system information" below.
-
-
-**System information:**
-<details><pre>
-Place the output of `M-x doom/info` or `~/.emacs.d/bin/doom info` here.
-</pre></details>
 

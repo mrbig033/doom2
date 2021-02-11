@@ -15,8 +15,9 @@
        use-package-always-defer t
        kill-whole-line t
        large-file-warning-threshold (* (expt 10 6) ;; generate um megabyte
-                                       20) ;; make it 20 megabytes
+                                       20)         ;; make it 20 megabytes
        display-line-numbers-type nil
+       abbrev-file-name "~/.doom.d/etc/abbrev_defs"
        ;; pabbrev-idle-timer-verbose nil
        user-mail-address "mrbig033@protonmail.com"
        bookmark-default-file "~/.doom.d/lisp/bookmarks"
@@ -28,7 +29,7 @@
        persp-emacsclient-init-frame-behaviour-override nil
        doom-font (font-spec :family "monospace" :size 27 :weight 'semi-light))
 
-(setq-default fill-column 100)
+(setq-default fill-column 79)
 
 (add-to-list 'display-buffer-alist
              '("*info*" display-buffer-same-window))
@@ -37,6 +38,8 @@
 (put 'scroll-left 'disabled nil)
 
 (load-file "~/.doom.d/lisp/cool-moves/cool-moves.el")
+(load-file "~/.doom.d/lisp/auto-capitalize/auto-capitalize.el")
+
 (global-hl-line-mode -1)
 
 (global-evil-visualstar-mode t)
@@ -530,8 +533,8 @@
       ("x"          'diredp-delete-this-file)
       ("<C-return>" 'dired-do-find-marked-files))
 
-(map! :map (org-journal-mode-map)
-      :n "<escape>" 'my-save-quit-window)
+;; (map! :map (org-journal-mode-map)
+;;       :n "<escape>" 'my-save-quit-window)
 
 (map! :map (snippet-mode-map)
       :n "<escape>" 'ignore)
@@ -678,6 +681,7 @@
       :desc "Move Line" :n "gaml"                                'avy-move-line
 
       :v "gr"                                'eval-region
+      :v "gW"                                'fill-region
       :ni "<M-return>"                       'my-indent-buffer
       :nv "F"                                'avy-goto-char-2-above
       :nv "f"                                'avy-goto-char-2-below
@@ -817,13 +821,20 @@
 
 (use-package! org-journal
   :init
-  (add-hook 'org-journal-after-entry-create-hook 'evil-insert-state)
+  (add-hook! 'org-journal-mode-hook
+             #'abbrev-mode
+             #'electric-operator-mode)
+  (add-hook! 'org-journal-after-entry-create-hook
+             #'evil-insert-state
+             #'delete-other-windows
+             #'olivetti-mode)
   :custom
   (org-journal-date-format "%A, %d, %Y")
-  (org-journal-file-format "%Y-%m-%d-jrnl")
+  (org-journal-file-format "%Y-%m-%d")
   (org-journal-time-format "%R\n")
-  :config
-  (set-popup-rule! "jrnl" :side 'bottom :modeline nil :height 19 :quit 't))
+  ;; :config
+  ;; (set-popup-rule! "jrnl" :side 'bottom :modeline nil :height 10 :quit 't)
+  )
 
 (use-package! racket
   :init
@@ -855,7 +866,8 @@
 (use-package! recentf
   :ensure nil
   :config
-  (add-to-list 'recentf-exclude "\\.el")
+  ;; (add-to-list 'recentf-exclude "\\.el")
+  (add-to-list 'recentf-exclude "\\.doom\\.d")
   (add-to-list 'recentf-exclude "\\.tex")
   (add-to-list 'recentf-exclude "tmp")
   (add-to-list 'recentf-exclude "\\.emacs\\.d")
@@ -1019,7 +1031,7 @@
   :config
 
   (setq super-save-triggers '(windmove-up
-                              counsel-M-x
+                              ;; counsel-M-x
                               next-buffer
                               other-window
                               +eval/buffer
@@ -1054,7 +1066,6 @@
 
   (super-save-mode +1))
 
-
 (use-package! ranger
   :demand t
   :init
@@ -1069,7 +1080,7 @@
 (use-package! company
   :after-call after-find-file
   :init
-  (add-hook 'company-mode 'company-prescient-mode)
+  (add-hook 'company-mode-hook 'company-prescient-mode)
   :custom
   (company-minimum-prefix-length 3)
   (company-idle-delay 0.3)
@@ -1094,6 +1105,7 @@
    ;; "TAB"      nil
    "C-h"    'backward-delete-char
    "M-q"    'company-complete-selection
+   "M-w"    'company-complete
    "C-d"    'counsel-company
    "M-y"    'my-company-yasnippet
    "M-p"    'my-company-comp-with-paren
@@ -1205,7 +1217,7 @@
   :after-call after-find-file
   :hook (Info-mode . olivetti-mode)
   :init
-  (setq-default olivetti-body-width '120))
+  (setq-default olivetti-body-width '90))
 
 (use-package! eyebrowse
   :after-call after-find-file
@@ -1292,7 +1304,7 @@
 (use-package! org
   :after-call after-find-file
   :init
-  ;; (remove-hook 'org-mode-hook #'pabbrev-mode)
+  (add-hook 'org-mode-hook 'abbrev-mode)
   (add-hook 'org-timer-done-hook 'my-find-scratch)
   (remove-hook 'org-cycle-hook 'org-optimize-window-after-visibility-change)
   (remove-hook 'org-mode-hook 'flyspell-mode)
@@ -1348,7 +1360,7 @@
   ;; (org-agenda-tags-column -80)
   :config
 
-  (set-company-backend! 'org-mode
+  (set-company-backend! '(org-mode org-journal-mode)
     'company-ispell 'company-dabbrev 'company-capf)
 
   (add-to-list 'org-link-abbrev-alist '("at" . org-attach-expand-link))
@@ -1476,10 +1488,8 @@
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers))
 
 (use-package! evil
-  :init
+  :innit
   (add-hook 'better-jumper-post-jump-hook 'my-recenter-window)
-  (add-hook 'evil-normal-state-entry-hook 'my-just-save-buffer-quiet)
-
   :custom
   (evil-jumps-cross-buffers nil)
   (evil-escape-unordered-key-sequence '("jk"))
@@ -1512,7 +1522,9 @@
   (doom-modeline-buffer-modification-icon nil)
   (doom-modeline-env-load-string ".")
   (doom-modeline-icon nil)
-  (doom-modeline-buffer-file-name-style 'buffer-name))
+  (doom-modeline-buffer-file-name-style 'buffer-name)
+  :config
+  (add-to-list 'doom-modeline-continuous-word-count-modes 'org-journal-mode))
 
 (use-package! time
   :custom
