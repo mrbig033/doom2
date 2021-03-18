@@ -671,9 +671,9 @@
       :n "M-e"                             'evil-forward-sentence-begin
       :n "M-i"                             'evil-jump-forward
       :n "M-o"                             'evil-jump-backward
-      :n "Q"                               'my-delete-frame
+      ;; :n "Q"                               'my-delete-frame
       :n "g0"                              'evil-digit-argument-or-evil-beginning-of-line
-      :n "ge"                              'evil-end-of-visual-line
+      ;; :n "ge"                              'evil-end-of-visual-line
       :n "gr"                              'my-sel-to-end
       :desc "What Cursor Position" :n "gA" 'what-cursor-position
 
@@ -1488,9 +1488,10 @@
   (add-hook 'org-cycle-hook 'org-cycle-hide-drawers))
 
 (use-package! evil
-  :innit
+  :init
   (add-hook 'better-jumper-post-jump-hook 'my-recenter-window)
   :custom
+  (evil-ex-substitute-global t)
   (evil-jumps-cross-buffers nil)
   (evil-escape-unordered-key-sequence '("jk"))
   (evil-respect-visual-line-mode t)
